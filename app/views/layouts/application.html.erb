@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CarMarketplace</title>
+    <title>Car Marketplace</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,8 +9,37 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
+  <body>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Car Marketplace</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <%= link_to 'x', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
 
-  <body class=p-4>
+            </li>
+          </ul>
+            <%if user_signed_in? %>
+                Welcome <%= link_to current_user.profile.first_name, '/profiles/show', class: 'nav-link' %>
+              <span>
+                <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-warning', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to log out?" } } %>
+              </span>
+              <%else%>
+              <span>
+                <%= link_to 'Sign-Up', new_user_registration_path, class: 'btn btn-info' %>
+                <%= link_to 'Sign-in', new_user_session_path, class: 'btn btn-info' %>
+              </span>
+            <%end%>
+        </div>
+      </div>
+    </nav>
+<main class=p-4>
   <% if notice %>
   <p class="alert alert-success"><%= notice.html_safe %></p>
 <% end %>
@@ -18,5 +47,6 @@
   <p class="alert alert-danger"><%= alert.html_safe %></p>
 <% end %>
     <%= yield %>
+    </main>
   </body>
 </html>

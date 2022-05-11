@@ -1,0 +1,7 @@
+<h1> <%= @profile.first_name%> <%= @profile.last_name %> </h1>
+
+<p> Email: <%= @user.email %> </p>
+<p> Date Of Birth: <%= @profile.date_of_birth %> </p>
+<p> Address: <%= @profile.address.street_number %> <%= @profile.address.street_name %> <%= @profile.address.city %> <%= @profile.address.state %> <%= @profile.address.postcode %> <%= @profile.address.country %> </p>
+
+<%= link_to 'Edit', edit_profile_path %>
