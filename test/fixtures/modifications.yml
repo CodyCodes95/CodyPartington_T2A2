@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  engine: MyString
+  suspension: MyString
+  wheels: MyString
+  exterior: MyString
+  interior: MyString
+  exhaust: MyString
+
+two:
+  engine: MyString
+  suspension: MyString
+  wheels: MyString
+  exterior: MyString
+  interior: MyString
+  exhaust: MyString

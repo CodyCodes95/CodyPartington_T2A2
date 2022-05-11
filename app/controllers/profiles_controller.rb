@@ -2,9 +2,18 @@ class ProfilesController < ApplicationController
 
     before_action :set_user
 
+    def index
+        @profiles = Profile.all
+    end
+
     def create
-        @profile = Profile.create!(profile_params)
+        @profile = Profile.create(profile_params)
+        if @profile.valid?
         redirect_to @profile
+        else
+      flash.now[:alert] = @profile.errors.full_messages.join('<br>')
+      render 'new'
+        end
     end
 
     def new

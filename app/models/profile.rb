@@ -4,5 +4,5 @@ class Profile < ApplicationRecord
   validates_associated :user
   accepts_nested_attributes_for :address
   validates :first_name, :last_name, :date_of_birth, presence: true
-  validates :first_name, :last_name, length: {minimum:3}
+  validates :first_name, :last_name, length: { in: 3..50 }
 end

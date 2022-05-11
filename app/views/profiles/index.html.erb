@@ -1,0 +1,7 @@
+<h1>
+    Profiles
+   
+</h1>
+<% @profiles.each do |profile| %>
+    <p> <%= link_to profile.first_name, profile %>
+<% end %>

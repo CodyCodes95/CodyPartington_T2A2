@@ -1,6 +1,6 @@
 User.destroy_all
-Profile.destroy_all
-Address.destroy_all
+# Profile.destroy_all
+# Address.destroy_all
 
 user = User.create(email:'admin@a.com', password:'admin00')
 # Address.create(street_number:1, street_name:'Wood Street', city:'Brisbane', state:'QLD', postcode:4000, country:'Australia')

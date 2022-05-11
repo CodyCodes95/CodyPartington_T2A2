@@ -21,7 +21,7 @@
 <div>
     <%= form.fields_for :address do |addresses_form| %>
         <%= addresses_form.label :street_number %>
-        <%= addresses_form.number_field :street_number %>
+        <%= addresses_form.text_field :street_number %>
 
         <%= addresses_form.label :street_name %>
         <%= addresses_form.text_field :street_name %>

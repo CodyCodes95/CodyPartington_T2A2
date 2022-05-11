@@ -3,7 +3,9 @@ class ListingsController < ApplicationController
     include Pundit::Authorization
 
     def index
+        if current_user
         @profile = current_user.profile
+        end
         profile_setup
     end
 
