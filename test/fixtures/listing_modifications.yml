@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
-  name: MyString
+  listing: one
+  modification: one
 
 two:
-  type: 
-  name: MyString
+  listing: two
+  modification: two

@@ -7,7 +7,6 @@ class CreateListings < ActiveRecord::Migration[7.0]
       t.text :description
       t.string :color
       t.integer :year
-      t.references :modification, null: false, foreign_key: true
 
       t.timestamps
     end

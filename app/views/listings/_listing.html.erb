@@ -1,0 +1,91 @@
+<h2>Create your listing</h2>
+
+<%= form_with model: @listing, data:{turbo:false} do |f| %>
+<%= f.hidden_field :profile_id, value: @profile_id %>
+
+<h3>Car</h3>
+<div>
+    <%= f.fields_for :car do |f| %>
+        <%= f.label :make %>
+        <%= f.text_field :make %>
+
+        <%= f.label :model %>
+        <%= f.text_field :model %>
+        <%end%>
+  </div>
+  
+  <h3>Details</h3>
+<div class="actions">
+<%= f.label :year %>
+<%= f.number_field :year %>
+</div>
+
+<div class="actions">
+<%= f.label :color %>
+<%= f.text_field :color %>
+</div>
+
+<div class="actions">
+<%= f.label :price %>
+<%= f.number_field :price %>
+</div>
+
+<div class="actions">
+<%= f.label :description %>
+<%= f.text_area :description %>
+</div>
+
+<h3>Modifications</h3>
+
+<h5>Engine</h5>
+<div>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'engine' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+
+<h5>Suspension</h5>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'suspension' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+
+<h5>Wheels</h5>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'wheels' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+
+<h5>Exhaust</h5>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'exhaust' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+
+<h5>Interior</h5>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'interior' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+
+<h5>Exterior</h5>
+    <%= f.fields_for :modifications do |f| %>
+        <%= f.hidden_field :modification_type, value: 'exterior' %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    <%end%>
+  </div>
+  <div>
+    <h5>Car Images</h5>
+    <%= f.file_field :car_images %>
+    <br> <br>
+  </div>
+  <div>
+    <%= f.submit %>
+</div>
+<% end %>

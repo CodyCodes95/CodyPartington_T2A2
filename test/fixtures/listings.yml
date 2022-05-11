@@ -7,7 +7,6 @@ one:
   description: MyText
   color: MyString
   year: 1
-  modification: one
 
 two:
   car: two
@@ -16,4 +15,3 @@ two:
   description: MyText
   color: MyString
   year: 1
-  modification: two
