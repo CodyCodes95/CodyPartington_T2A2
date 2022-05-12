@@ -6,7 +6,14 @@ user.create_profile(first_name:'Barry', last_name:'Burton', date_of_birth:'1995-
 car = Car.create(make:'Toyota', model:'86')
 listing = car.listings.create(profile_id:1, car_id:1, price:4000000, description:'My Toyota 86. All modifications listed in the modification section.', color:'red', year:2015)
 listing.modifications.create(modification_type:'suspension', name:'Airlift Suspension')
-
+listing.modifications.create(modification_type:'engine', name:'NA')
+listing.modifications.create(modification_type:'suspension', name:'Racer X Upper control arms')
+listing.modifications.create(modification_type:'interior', name:'NA')
+listing.modifications.create(modification_type:'exterior', name:'Moulded Rocket Bunny V1 rear overfenders')
+listing.modifications.create(modification_type:'exterior', name:'Todoroki front fenders')
+listing.modifications.create(modification_type:'exterior', name:'Moulded Legsport rear spoiler')
+listing.modifications.create(modification_type:'wheels', name:'Rotiform YVR 9.5+0')
+listing.car_images.attach(io: File.open("#{Rails.root}/public/h.jpg"), filename: 'h.jpg')
 
 puts "Users: #{User.count}"
 puts "Profiles: #{Profile.count}"
@@ -14,4 +21,5 @@ puts "Addresses: #{Address.count}"
 puts "Car: #{Car.count}"
 puts "Listing: #{Listing.count}"
 puts "Modification: #{Modification.count}"
+
 

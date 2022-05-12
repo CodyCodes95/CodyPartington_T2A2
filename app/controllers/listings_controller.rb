@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
     # before_action :authenticate_user!
 
     before_action :set_user, only: [:new]
+    before_action :find_listing, only: [:show]
 
     include Pundit::Authorization
 
@@ -10,6 +11,7 @@ class ListingsController < ApplicationController
     end
 
     def show
+        @suspension = return_mods('suspension')
     end
 
 def new
@@ -38,5 +40,14 @@ end
         @profile_id = current_user.id
         @user = current_user
         @profile = current_user.profile
+    end
+
+    def find_listing
+        @listing = Listing.find(params[:id])
+    end
+
+    def return_mods(mod_type)
+        mod_type = @listing.modifications.where(modifications: {modification_type:mod_type})
+        return mod_type
     end
 end

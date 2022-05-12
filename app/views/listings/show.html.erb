@@ -1,0 +1,45 @@
+<h1> <%= @listing.year%> <%= @listing.car.make %> <%= @listing.car.model %> </h1>
+
+<%= cl_image_tag @listing.car_images.key , crop:'scale', width: 500, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
+
+<h3>$<%= @listing.price / 100%> </h3>
+
+<h3>Description</h3>
+
+<%= @listing.description %>
+
+<h3>Modifications</h3>
+
+<h4>Wheels</h4>
+
+<% wheels = @listing.modifications.where(modifications: {modification_type:'wheels'})  %>
+<% wheels.each do |mod| %>
+<div> <%= mod.name  %> </div>
+<% end %>
+
+<h4>Suspension</h4>
+
+<% @suspension.each do |mod| %>
+<div> <%= mod.name  %> </div>
+<% end %>
+
+<h4>Engine</h4>
+
+<% engine = @listing.modifications.where(modifications: {modification_type:'engine'})  %>
+<% engine.each do |mod| %>
+<div> <%= mod.name  %> </div>
+<% end %>
+
+<h4>Exterior</h4>
+
+<% exterior = @listing.modifications.where(modifications: {modification_type:'exterior'})  %>
+<% exterior.each do |mod| %>
+<div> <%= mod.name  %> </div>
+<% end %>
+
+<h4>Interior</h4>
+
+<% interior = @listing.modifications.where(modifications: {modification_type:'interior'})  %>
+<% interior.each do |mod| %>
+<div> <%= mod.name  %> </div>
+<% end %>
