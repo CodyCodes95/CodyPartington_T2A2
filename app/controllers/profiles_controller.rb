@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
-
-    before_action :set_user
+    include Pundit::Authorization
+    before_action :set_user, only: [:show, :edit, :update]
+    before_action :set_id, only: [:new, :edit]
 
     def index
         @profiles = Profile.all
@@ -11,8 +12,7 @@ class ProfilesController < ApplicationController
         if @profile.valid?
         redirect_to @profile
         else
-      flash.now[:alert] = @profile.errors.full_messages.join('<br>')
-      render 'new'
+      show_error_retry(@profile, 'new')
         end
     end
 
@@ -21,37 +21,31 @@ class ProfilesController < ApplicationController
         @profile.build_address
     end
 
-    def show
-        @profile = current_user.profile
-    end
+    def show; end
 
-    def edit
-
-    end
+    def edit; end
 
     def update
-        @profile = current_user.profile
         @profile.update(profile_params)
         if @profile.valid?
         redirect_to @profile
         else
-      flash.now[:alert] = @profile.errors.full_messages.join('<br>')
-      render 'edit'
+      show_error_retry(@profile, 'edit')
         end
-
     end
 
-    private
-    
+  private
+
     def profile_params
-        params.require(:profile).permit(:user_id, :first_name, :last_name, :date_of_birth, :avatar, address_attributes: [:id, :street_number,:street_name, :city, :state, :postcode, :country])
+        params.require(:profile).permit(:user_id, :first_name, :last_name, :date_of_birth, :avatar,
+            address_attributes: [:id, :street_number, :street_name, :city, :state, :postcode, :country])
     end
 
     def set_user
-        @id = current_user.id
-        @user = current_user
         @profile = current_user.profile
     end
 
+    def set_id
+        @id = current_user.id
+    end
 end
-

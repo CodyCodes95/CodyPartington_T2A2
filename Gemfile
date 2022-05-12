@@ -91,3 +91,4 @@ gem "pg", "~> 1.3"
 gem 'jquery-rails'
 
 gem 'dotenv-rails'
+gem "ransack", "~> 3.2"
