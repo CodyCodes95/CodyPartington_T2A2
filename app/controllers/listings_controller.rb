@@ -11,7 +11,7 @@ class ListingsController < ApplicationController
     end
 
     def show
-        @suspension = return_mods('suspension')
+        return_modification_types
     end
 
 def new
@@ -47,7 +47,12 @@ end
     end
 
     def return_mods(mod_type)
-        mod_type = @listing.modifications.where(modifications: {modification_type:mod_type})
-        return mod_type
+        mods = @listing.modifications.where(modifications: {modification_type:mod_type})
+        return mods
+    end
+    helper_method :return_mods
+
+    def return_modification_types
+       return @mod_types = @listing.modifications.distinct.pluck('modification_type')
     end
 end

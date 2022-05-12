@@ -1,46 +1,51 @@
 <h2>Create your profile</h2>
 
-<%= form_with model: @profile, data:{turbo:false} do |form| %>
+<%= form_with model: @profile, data:{turbo:false} do |f| %>
 <div class="actions">
-<%= form.label :first_name %>
-<%= form.text_field :first_name %>
+<%= f.label :first_name %>
+<%= f.text_field :first_name %>
 </div>
 
 <div class="actions">
-<%= form.label :last_name %>
-<%= form.text_field :last_name %>
+<%= f.label :last_name %>
+<%= f.text_field :last_name %>
 </div>
 
 <div class="actions">
-<%= form.label :date_of_birth %>
-<%= form.date_field :date_of_birth %>
+<%= f.label :date_of_birth %>
+<%= f.date_field :date_of_birth %>
 </div>
 
-<%= form.hidden_field :user_id, value: @id %>
+<div class="actions">
+<%= f.label :avatar %>
+ <%= f.file_field :avatar %>
+</div>
+
+<%= f.hidden_field :user_id, value: @id %>
 
 <div>
-    <%= form.fields_for :address do |addresses_form| %>
-        <%= addresses_form.label :street_number %>
-        <%= addresses_form.text_field :street_number %>
+    <%= f.fields_for :address do |f| %>
+        <%= f.label :street_number %>
+        <%= f.text_field :street_number %>
 
-        <%= addresses_form.label :street_name %>
-        <%= addresses_form.text_field :street_name %>
+        <%= f.label :street_name %>
+        <%= f.text_field :street_name %>
 
-        <%= addresses_form.label :city %>
-        <%= addresses_form.text_field :city %>
+        <%= f.label :city %>
+        <%= f.text_field :city %>
 
-        <%= addresses_form.label :state %>
-        <%= addresses_form.text_field :state %>
+        <%= f.label :state %>
+        <%= f.text_field :state %>
 
-        <%= addresses_form.label :postcode %>
-        <%= addresses_form.number_field :postcode %>
+        <%= f.label :postcode %>
+        <%= f.number_field :postcode %>
 
-        <%= addresses_form.label :country %>
-        <%= addresses_form.text_field :country %>
+        <%= f.label :country %>
+        <%= f.text_field :country %>
         <%end%>
   </div>
   <div>
-    <%= form.submit %>
+    <%= f.submit %>
 </div>
 <% end %>
 
