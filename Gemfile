@@ -89,3 +89,5 @@ gem "activestorage-cloudinary-service", "~> 0.2.3"
 gem "pg", "~> 1.3"
 
 gem 'jquery-rails'
+
+gem 'dotenv-rails'

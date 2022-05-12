@@ -1,11 +1,12 @@
 class ListingsController < ApplicationController
     # before_action :authenticate_user!
 
-    before_action :set_user
+    before_action :set_user, only: [:new]
 
     include Pundit::Authorization
 
     def index
+        @listings = Listing.all
     end
 
     def show
@@ -30,7 +31,7 @@ end
     private
     
     def listing_params
-        params.require(:listing).permit(:car_id, :profile_id, :price, :description, :color, :year, car_attributes: [:id, :make,:model], modifications_attributes: [:id, :modification_type,:name])
+        params.require(:listing).permit(:car_id, :profile_id, :price, :description, :color, :year, :car_images, car_attributes: [:id, :make,:model], modifications_attributes: [:id, :modification_type,:name])
     end
 
     def set_user

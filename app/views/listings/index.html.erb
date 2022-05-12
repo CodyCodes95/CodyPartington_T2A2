@@ -1,5 +1,23 @@
-<h1 class="display-1">listings#index</h1>
+<h1 class="display-1">Listings</h1>
 
 <% if user_signed_in?%> 
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
+<%end%>
+
+<% @listings.each do |listing| %>
+<div class="card" style="width: 18rem;">
+  <%= cl_image_tag listing.car_images.key , crop:'scale', width: 150, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
+  <div class="card-body">
+    <h5 class="card-title"><%=listing.year%> <%= listing.car.make %> <%=listing.car.model %></h5>
+    <p class="card-text"><%= listing.description %></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= listing.price /100 %></li>
+    <li class="list-group-item"><%= listing.color %></li>
+    <li class="list-group-item"><%= listing.profile.address.state %> <%=listing.profile.address.postcode %></li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+  </div>
+</div>
 <%end%>
