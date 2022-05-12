@@ -4,9 +4,10 @@
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
 <%end%>
 
+<% if Listing.all.length > 0 %>
 <% @listings.each do |listing| %>
 <div class="card" style="width: 18rem;">
-  <%= cl_image_tag listing.car_images.key , crop:'scale', width: 150, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
+  <%= cl_image_tag listing.car_images_attachments.first.key , crop:'scale', width: 150, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
   <div class="card-body">
     <h5 class="card-title"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h5>
     <p class="card-text"><%= listing.description %></p>
@@ -20,5 +21,6 @@
     <%= link_to "View listing", listing %>
   </div>
 </div>
-<%end%>
+<% end %>
+<% end %>
 
