@@ -7,13 +7,17 @@ class ListingsController < ApplicationController
     before_action :has_permission?, only: [:edit, :update, :destroy]
     before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
-    before_action  :return_modification_types, only: [:new, :show, :edit]
+    before_action :return_modification_types, only: [:new, :show, :edit, :index]
+    before_action :return_mod_names, only: [:index]
     helper_method :return_mods
 
     def index
         profile_setup
-        @q = Listing.ransack(params[:q])
-        @listings = @q.result
+        @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
+        p'------------------------------------------------------------------'
+        p @q.result
+        p'------------------------------------------------------------------'
+        @listings = @q.result.distinct
     end
 
     def show; end
@@ -83,6 +87,10 @@ class ListingsController < ApplicationController
     def return_modification_types
         modifications = Modification.all
         return @mod_types = modifications.distinct.pluck('modification_type')
+    end
+
+    def return_mod_names
+        return @mod_names = Modification.all.distinct.pluck('name')
     end
 
     def has_permission?

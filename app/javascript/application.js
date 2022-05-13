@@ -4,3 +4,4 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 //= require jquery
 //= require bootstrap-sprockets
+//= require popper

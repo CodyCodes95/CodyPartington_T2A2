@@ -27,7 +27,7 @@
           </ul>
             <%if user_signed_in? %>
               <%if current_user.profile %>
-                Welcome <%= link_to current_user.profile.first_name, '/profiles/show', class: 'nav-link' %>
+                Welcome <%= link_to current_user.profile.first_name, "/profiles/#{current_user.profile.id}", class: 'nav-link' %>
                 <%else%>
                 Welcome <%= current_user.email %>
                 <%end%>
