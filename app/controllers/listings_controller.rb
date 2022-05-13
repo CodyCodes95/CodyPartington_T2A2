@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
     include Pundit::Authorization
 
     before_action :authenticate_user!, except: [:index, :show]
-    before_action :check_auth
+    before_action :check_auth, except: [:index]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
     before_action :has_permission?, only: [:edit, :update, :destroy]
     before_action :set_user, only: [:new, :edit]
@@ -10,7 +10,9 @@ class ListingsController < ApplicationController
     helper_method :return_mods
 
     def index
-        @listings = Listing.all
+        profile_setup
+        @q = Listing.ransack(params[:q])
+        @listings = @q.result
     end
 
     def show; end
@@ -26,19 +28,18 @@ class ListingsController < ApplicationController
         if @listing.valid?
             redirect_to @listing
         else
-            show_error_retry(@listing,'new')
+            show_error_retry(@listing, 'new')
         end
     end
 
-    def edit;
-     end
+    def edit; end
 
     def update
         @listing.update(listing_params)
         if @listing.valid?
         redirect_to @listing
         else
-      show_error_retry(@listing,'edit')
+      show_error_retry(@listing, 'edit')
         end
     end
 
@@ -48,6 +49,10 @@ class ListingsController < ApplicationController
     end
 
   private
+
+    def profile_setup
+        redirect_to '/profiles/new' if current_user && current_user.profile.nil?
+    end
 
     def listing_params
         params.require(:listing).permit(:car_id, :profile_id, :price, :description, :color, :year, car_images: [],
@@ -69,7 +74,7 @@ class ListingsController < ApplicationController
     def return_mods(mod_type)
         return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
     end
-    
+
     def return_modification_types
        return @mod_types = @listing.modifications.distinct.pluck('modification_type')
     end
@@ -79,8 +84,7 @@ class ListingsController < ApplicationController
     end
 
     def has_permission?
-        if current_user.has_role? :admin
-            return true
+        if is_admin?
         elsif current_user.profile.id != @listing.profile.id
             forbidden
         end

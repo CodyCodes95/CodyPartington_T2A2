@@ -2,6 +2,13 @@
 
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
 
+<%= search_form_for @q do |f| %>
+
+  <%= f.label :make %>
+  <%= f.select(:car_id_eq, Car.all.collect {|car| [car.make, car.id]}) %>
+  <%= f.submit "Search" %>
+  <% end %>
+
 <% if Listing.all.length > 0 %>
 <% @listings.each do |listing| %>
 <div class="card" style="width: 18rem;">

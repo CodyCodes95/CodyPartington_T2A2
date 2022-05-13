@@ -56,8 +56,7 @@ class ProfilesController < ApplicationController
     end
 
     def has_permission?
-        if current_user.has_role? :admin
-            return true
+        if is_admin?
         elsif current_user.profile.id != @profile.id
             forbidden
         end
