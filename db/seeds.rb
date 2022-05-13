@@ -23,20 +23,20 @@ listing.car_images.attach(io: File.open("#{Rails.root}/public/h3.jpg"), filename
 
 #A4
 
-car = Car.create!(make:'Audi', model:'A4')
-listing = car.listings.create!(profile_id:1, car_id:2, price:2500000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
-listing.modifications.create!(modification_type:'suspension', name:'Airlift Suspension')
-listing.modifications.create!(modification_type:'engine', name:'NA')
-listing.modifications.create!(modification_type:'suspension', name:'T-Demand rear upper control arms')
-listing.modifications.create!(modification_type:'suspension', name:'Front upper control arms')
-listing.modifications.create!(modification_type:'interior', name:'NA')
-listing.modifications.create!(modification_type:'exterior', name:'Moulded rear spoiler')
-listing.modifications.create!(modification_type:'exterior', name:'RS4 front bar')
-listing.modifications.create!(modification_type:'exterior', name:'Smoked tail lights')
-listing.modifications.create!(modification_type:'wheels', name:'Work Equip 05 18x10 & 18x10.5')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a1.jpg"), filename: 'a1.jpg')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a2.jpg"), filename: 'a2.jpg')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a3.jpg"), filename: 'a3.jpg')
+# car = Car.create!(make:'Audi', model:'A4')
+# listing = car.listings.create!(profile_id:1, car_id:2, price:2500000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
+# listing.modifications.create!(modification_type:'suspension', name:'Airlift Suspension')
+# listing.modifications.create!(modification_type:'engine', name:'NA')
+# listing.modifications.create!(modification_type:'suspension', name:'T-Demand rear upper control arms')
+# listing.modifications.create!(modification_type:'suspension', name:'Front upper control arms')
+# listing.modifications.create!(modification_type:'interior', name:'NA')
+# listing.modifications.create!(modification_type:'exterior', name:'Moulded rear spoiler')
+# listing.modifications.create!(modification_type:'exterior', name:'RS4 front bar')
+# listing.modifications.create!(modification_type:'exterior', name:'Smoked tail lights')
+# listing.modifications.create!(modification_type:'wheels', name:'Work Equip 05 18x10 & 18x10.5')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a1.jpg"), filename: 'a1.jpg')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a2.jpg"), filename: 'a2.jpg')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a3.jpg"), filename: 'a3.jpg')
 
 puts "Users: #{User.count}"
 puts "Profiles: #{Profile.count}"
