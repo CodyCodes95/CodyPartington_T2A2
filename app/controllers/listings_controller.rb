@@ -6,7 +6,8 @@ class ListingsController < ApplicationController
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
     before_action :has_permission?, only: [:edit, :update, :destroy]
     before_action :set_user, only: [:new, :edit]
-    before_action :return_images, :return_modification_types, only: [:show]
+    before_action :return_images, only: [:show]
+    before_action  :return_modification_types, only: [:new, :show, :edit]
     helper_method :return_mods
 
     def index
@@ -75,12 +76,13 @@ class ListingsController < ApplicationController
         return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
     end
 
-    def return_modification_types
-       return @mod_types = @listing.modifications.distinct.pluck('modification_type')
-    end
-
     def return_images
         @images = @listing.car_images_attachments
+    end
+
+    def return_modification_types
+        modifications = Modification.all
+        return @mod_types = modifications.distinct.pluck('modification_type')
     end
 
     def has_permission?
