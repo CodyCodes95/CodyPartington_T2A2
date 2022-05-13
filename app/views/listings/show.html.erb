@@ -4,8 +4,6 @@
     <%= cl_image_tag image.key , crop:'scale', width: 500, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
 <%end%>
 
-<%# Call carousel here %>
-
 <h3>$<%= @listing.price / 100%> </h3>
 
 <h3>Description</h3>
