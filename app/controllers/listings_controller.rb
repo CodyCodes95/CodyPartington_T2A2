@@ -1,8 +1,11 @@
 class ListingsController < ApplicationController
     include Pundit::Authorization
 
-    before_action :set_user, only: [:new, :edit]
+    before_action :authenticate_user!, except: [:index, :show]
+    before_action :check_auth
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
+    before_action :has_permission?, only: [:edit, :update, :destroy]
+    before_action :set_user, only: [:new, :edit]
     before_action :return_images, :return_modification_types, only: [:show]
     helper_method :return_mods
 
@@ -27,7 +30,8 @@ class ListingsController < ApplicationController
         end
     end
 
-    def edit; end
+    def edit;
+     end
 
     def update
         @listing.update(listing_params)
@@ -54,6 +58,10 @@ class ListingsController < ApplicationController
         @profile_id = current_user.id
     end
 
+    def check_auth
+        authorize Listing
+    end
+
     def find_listing
         @listing = Listing.find(params[:id])
     end
@@ -68,5 +76,13 @@ class ListingsController < ApplicationController
 
     def return_images
         @images = @listing.car_images_attachments
+    end
+
+    def has_permission?
+        if current_user.has_role? :admin
+            return true
+        elsif current_user.profile.id != @listing.profile.id
+            forbidden
+        end
     end
 end

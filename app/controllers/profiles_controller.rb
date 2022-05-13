@@ -1,7 +1,9 @@
 class ProfilesController < ApplicationController
     include Pundit::Authorization
+    before_action :check_auth
     before_action :set_user, only: [:show, :edit, :update]
     before_action :set_id, only: [:new, :edit]
+    before_action :has_permission?, only: [:edit, :update, :destroy, :show]
 
     def index
         @profiles = Profile.all
@@ -42,10 +44,22 @@ class ProfilesController < ApplicationController
     end
 
     def set_user
-        @profile = current_user.profile
+        @profile = Profile.find(params[:id])
     end
 
     def set_id
         @id = current_user.id
+    end
+
+    def check_auth
+        authorize Profile
+    end
+
+    def has_permission?
+        if current_user.has_role? :admin
+            return true
+        elsif current_user.profile.id != @profile.id
+            forbidden
+        end
     end
 end

@@ -1,8 +1,6 @@
 <h1 class="display-1">Listings</h1>
 
-<% if user_signed_in?%> 
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
-<%end%>
 
 <% if Listing.all.length > 0 %>
 <% @listings.each do |listing| %>
