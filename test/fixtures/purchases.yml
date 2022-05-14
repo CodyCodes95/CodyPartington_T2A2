@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  car: one
+  date_purchased: 2022-05-14 21:33:16
+  buyer: one
+  seller: one
+
+two:
+  car: two
+  date_purchased: 2022-05-14 21:33:16
+  buyer: two
+  seller: two

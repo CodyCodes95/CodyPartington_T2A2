@@ -17,10 +17,14 @@
 <h3 class="mt-3">Modifications</h3>
 
 <% @mod_types.each do |type| %>
-    <h4 class="mt-3"> <%=type.capitalize%> </h4>
-    <% mods = return_mods(type) %> 
-    <%mods.each do |mod|%>
-        <div> <%= mod.name.capitalize %>  </div>
+    <%if return_mods(type)[0].name != ""%>
+        <h4 class="mt-3"> <%=type.capitalize%> </h4>
+        <% mods = return_mods(type) %> 
+        <ul class="list-group w-25 p-3">
+        <%mods.each do |mod|%>
+            <li class="list-group-item"> <%= mod.name.capitalize %>  </li>
+        <% end %>
+        </ul>
     <% end %>
 <% end %>
 

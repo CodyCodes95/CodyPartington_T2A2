@@ -1,5 +1,3 @@
-<h2>Create your listing</h2>
-
 <%= form_with model: @listing, data:{turbo:false} do |f| %>
 <%= f.hidden_field :profile_id, value: @profile_id %>
 
@@ -39,9 +37,16 @@
 
 <% @mod_types.each do |type| %>
 <h5> <%= type %> </h5>
+<% if @listing.year != nil%>
+    <%= f.fields_for :modifications, @listing.modifications.where(modification_type:type) do |f| %>
+        <%= f.hidden_field :modification_type, value: type %>
+        <%= f.text_field :name %>
+    <%end%>
+    <% else %>
     <%= f.fields_for :modifications do |f| %>
         <%= f.hidden_field :modification_type, value: type %>
         <%= f.text_field :name %>
+    <%end%>
     <%end%>
 <% end %>
 
