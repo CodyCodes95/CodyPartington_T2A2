@@ -4,8 +4,8 @@ class ListingsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :check_auth, except: [:index]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
-    before_action :has_permission?, only: [:edit, :update, :destroy]
-    before_action :set_user, only: [:new, :edit]
+    before_action :has_permission?, only: [:edit, :destroy]
+    before_action :set_user, only: [:new, :edit, :show]
     before_action :return_images, only: [:show]
     before_action :return_modification_types, only: [:new, :show, :edit, :index]
     before_action :return_mod_names, only: [:index]
@@ -14,9 +14,6 @@ class ListingsController < ApplicationController
     def index
         profile_setup
         @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
-        p'------------------------------------------------------------------'
-        p @q.result
-        p'------------------------------------------------------------------'
         @listings = @q.result.distinct
     end
 
@@ -77,7 +74,10 @@ class ListingsController < ApplicationController
     end
 
     def return_mods(mod_type)
+        if @listing
         return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
+        else return Modification.where(modifications: { modification_type: mod_type })
+        end
     end
 
     def return_images

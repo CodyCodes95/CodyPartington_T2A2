@@ -9,22 +9,23 @@
   <% end %>
 
 <% if Listing.all.length > 0 %>
+<div class="row">
 <% @listings.each do |listing| %>
-<div class="card" style="width: 18rem;">
-  <%= cl_image_tag listing.car_images_attachments.first.key , crop:'scale', width: 150, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
-  <div class="card-body">
-    <h5 class="card-title"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h5>
-    <p class="card-text"><%= listing.description %></p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">$<%= listing.price / 100 %></li>
-    <li class="list-group-item"><%= listing.color.capitalize %></li>
-    <li class="list-group-item"><%= listing.profile.address.state %> <%= listing.profile.address.postcode %></li>
+  <div class="col-sm-6">
+    <div class="card">
+    <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>500, :width=>750, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-responsive center-block d-block mx-auto" %>
+      <div class="card-body">
+        <h3 class="card-title text-center"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h3>
+        <p class="card-text text-center"><%= listing.description %></p>
+        <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center">$<%= listing.price / 100 %></li>
+    <li class="list-group-item text-center"><%= listing.color.capitalize %></li>
+    <li class="list-group-item text-center"><%= listing.profile.address.state %> <%= listing.profile.address.postcode %></li>
+    <li class="list-group-item text-center"><%= link_to "View listing", listing, class:"btn btn-outline-info" %></li>
   </ul>
-  <div class="card-body">
-    <%= link_to "View listing", listing %>
+      </div>
+    </div>
   </div>
-</div>
 <% end %>
 <% end %>
 

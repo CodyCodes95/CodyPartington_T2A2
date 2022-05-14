@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
     include Pundit::Authorization
-    before_action :check_auth
+    before_action :check_auth, except: [:new]
     before_action :set_user, only: [:show, :edit, :update]
     before_action :set_id, only: [:new, :edit]
     before_action :has_permission?, only: [:edit, :update, :destroy, :show]
@@ -10,7 +10,7 @@ class ProfilesController < ApplicationController
     end
 
     def create
-        @profile = Profile.create(profile_params)
+        @profile = Profile.create!(profile_params)
         if @profile.valid?
         redirect_to @profile
         else
