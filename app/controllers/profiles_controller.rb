@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
     include Pundit::Authorization
-    before_action :check_auth, except: [:new]
-    before_action :set_user, only: [:show, :edit, :update]
+     rescue_from Pundit::NotAuthorizedError, with: :forbidden
+     before_action :set_user, only: [:show, :edit, :update]
+     before_action :check_auth
     before_action :set_id, only: [:new, :edit]
-    before_action :has_permission?, only: [:edit, :update, :destroy, :show]
 
     def index
         @profiles = Profile.all
@@ -23,7 +23,8 @@ class ProfilesController < ApplicationController
         @profile.build_address
     end
 
-    def show; end
+    def show;
+     end
 
     def edit; end
 
@@ -52,13 +53,11 @@ class ProfilesController < ApplicationController
     end
 
     def check_auth
-        authorize Profile
-    end
-
-    def has_permission?
-        if is_admin?
-        elsif current_user.profile.id != @profile.id
-            forbidden
+        if current_user && current_user.profile != nil
+        authorize @profile
+        else
+            authorize Profile
         end
     end
+
 end

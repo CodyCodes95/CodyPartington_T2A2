@@ -25,15 +25,20 @@ class ListingPolicy
   end
 
   def update?
-    @user && @user.has_role?(:admin)
+    return (@user && @user.has_role?(:admin)) || (@user.id == @record.profile_id)
   end
 
   def edit?
+    p'================================='
+    p @user
+    p'================================='
+    p @record
+    p'================================='
     update?
   end
 
   def destroy?
-    return @user && @user.has_role?(:admin)
+    return (@user && @user.has_role?(:admin)) || (@user.id == @record.profile_id)
   end
 
     def edit_or_destroy?

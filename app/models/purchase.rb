@@ -1,5 +1,5 @@
 class Purchase < ApplicationRecord
   belongs_to :car
-  belongs_to :buyer
-  belongs_to :seller
+  belongs_to :buyer, class_name: 'Profile'
+  belongs_to :seller, class_name: 'Profile'
 end

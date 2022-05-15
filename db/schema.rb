@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_11_050543) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_113316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_11_050543) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "car_id", null: false
+    t.datetime "date_purchased"
+    t.bigint "buyer_id", null: false
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
+    t.index ["car_id"], name: "index_purchases_on_car_id"
+    t.index ["seller_id"], name: "index_purchases_on_seller_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -139,4 +151,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_11_050543) do
   add_foreign_key "listings", "profiles"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "users"
+  add_foreign_key "purchases", "cars"
 end

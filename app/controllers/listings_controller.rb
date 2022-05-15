@@ -2,10 +2,9 @@ class ListingsController < ApplicationController
     include Pundit::Authorization
 
     before_action :authenticate_user!, except: [:index, :show]
-    before_action :check_auth, except: [:index]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
-    before_action :has_permission?, only: [:edit, :destroy]
-    before_action :set_user, only: [:new, :edit, :show]
+    before_action :check_auth, except: [:index, :new, :create]
+    before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
     before_action :return_modification_types, only: [:new, :show, :edit, :update, :create]
     before_action :return_mod_names, only: [:index]
@@ -20,12 +19,14 @@ class ListingsController < ApplicationController
     def show; end
 
     def new
+        authorize Listing
         @listing = Listing.new
         @listing.modifications.build
         @listing.build_car
     end
 
     def create
+        authorize Listing
         @listing = Listing.create(listing_params)
         if @listing.valid?
             redirect_to @listing
@@ -46,6 +47,7 @@ class ListingsController < ApplicationController
     end
 
     def destroy
+    authorize @listing
     @listing.destroy
     redirect_to listings_path
     end
@@ -58,7 +60,7 @@ class ListingsController < ApplicationController
 
     def listing_params
         params.require(:listing).permit(:car_id, :profile_id, :price, :description, :color, :year, car_images: [],
-            car_attributes: [:id, :make, :model], modifications_attributes: [:id, :modification_type, :name])
+                                                                                                   car_attributes: [:id, :make, :model], modifications_attributes: [:id, :modification_type, :name])
     end
 
     def set_user
@@ -66,7 +68,7 @@ class ListingsController < ApplicationController
     end
 
     def check_auth
-        authorize Listing
+        authorize @listing
     end
 
     def find_listing
@@ -76,7 +78,8 @@ class ListingsController < ApplicationController
     def return_mods(mod_type)
         if @listing
         return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
-        else return Modification.where(modifications: { modification_type: mod_type })
+        else
+          return Modification.where(modifications: { modification_type: mod_type })
         end
     end
 
@@ -91,12 +94,5 @@ class ListingsController < ApplicationController
 
     def return_mod_names
         return @mod_names = Modification.all.distinct.pluck('name')
-    end
-
-    def has_permission?
-        if is_admin?
-        elsif current_user.profile.id != @listing.profile.id
-            forbidden
-        end
     end
 end
