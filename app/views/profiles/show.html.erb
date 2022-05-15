@@ -6,4 +6,8 @@
 <p> Date Of Birth: <%= @profile.date_of_birth %> </p>
 <p> Address: <%= @profile.address.street_number %> <%= @profile.address.street_name %> <%= @profile.address.city %> <%= @profile.address.state %> <%= @profile.address.postcode %> <%= @profile.address.country %> </p>
 
-<%= link_to 'Edit', edit_profile_path %>
+<div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">
+<%= link_to 'Edit', edit_profile_path, class:"btn btn-warning" %>
+<% if policy(@profile).destroy? %>
+<%= button_to('Delete', @profile, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete your profile?" }}, class: "btn btn-danger ms-2") %>
+<% end %>

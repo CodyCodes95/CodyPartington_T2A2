@@ -6,7 +6,7 @@ class ListingsController < ApplicationController
     before_action :check_auth, except: [:index, :new, :create]
     before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
-    before_action :return_modification_types, only: [:new, :show, :edit, :update, :create]
+    before_action :return_modification_types, except: [:index]
     before_action :return_mod_names, only: [:index]
     helper_method :return_mods
 

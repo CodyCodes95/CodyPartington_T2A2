@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :profiles
   resources :purchases
   root 'listings#index'
+  get '/admin', to: 'admin#index', as: 'admin'
 end

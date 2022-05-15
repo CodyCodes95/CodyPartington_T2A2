@@ -25,7 +25,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def destroy?
-    admin_or_owns
+    @user.has_role?(:admin)
   end
 
   private

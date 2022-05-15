@@ -1,24 +1,38 @@
-# README
+**R7. Identification of the problem you are trying to solve by building this particular marketplace app.**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**R8. Why is it a problem that needs solving?**
 
-Things you may want to cover:
+**R9. A link (URL) to your deployed app (i.e. website)**
 
-* Ruby version
+**R10. A link to your GitHub repository (repo).**
 
-* System dependencies
+https://github.com/CodyCodes95/CodyPartington_T2A2
 
-* Configuration
+**R11. Description of your marketplace app (website), including:**
 
-* Database creation
+**Purpose**
+**Functionality / features**
+**Sitemap**
+**Screenshots**
+**Target audience**
+**Tech stack (e.g. html, css, deployment platform, etc)**
 
-* Database initialization
+**R12. User stories for your app**
 
-* How to run the test suite
+**R13. Wireframes for your app**
 
-* Services (job queues, cache servers, search engines, etc.)
+**R14. An ERD for your app**
 
-* Deployment instructions
+**R15. Explain the different high-level components (abstractions) in your app**
 
-* ...
+**R16. Detail any third party services that your app will use**
+
+**R17. Describe your projects models in terms of the relationships (active record associations) they have with each other**
+
+**R18. Discuss the database relations to be implemented in your application**
+
+**R19. Discuss the database relations to be implemented in your application**
+
+**R20. Provide your database schema design**
+
+**R21. Describe the way tasks are allocated and tracked in your project**
