@@ -1,0 +1,22 @@
+<h1>Chats</h1>
+
+<% if Listing.all.length > 0 %>
+  <div class="row">
+  <% @chats.each do |chat| %>
+    <div class="col-sm-6 mt-3">
+      <div class="card">
+      <%= cl_image_tag chat.listing.car_images_attachments.first.key , :background=>"white", :height=>500, :width=>750, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-responsive center-block d-block mx-auto" %>
+        <div class="card-body">
+          <h3 class="card-title text-center"><%= chat.listing.year%> <%= chat.listing.car.make %> <%= chat.listing.car.model %></h3>
+          <p class="card-text text-center"><%= chat.message.content %></p>
+          <ul class="list-group list-group-flush">
+      <li class="list-group-item text-center">$<%= chat.listing.price / 100 %></li>
+      <li class="list-group-item text-center"><%= chat.listing.color.capitalize %></li>
+      <li class="list-group-item text-center"><%= chat.listing.profile.address.state %> <%= listing.profile.address.postcode %></li>
+      <li class="list-group-item text-center"><%= link_to "View messages", chat, class:"btn btn-outline-info" %></li>
+    </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

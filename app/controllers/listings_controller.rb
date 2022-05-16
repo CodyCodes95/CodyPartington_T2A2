@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
     include Pundit::Authorization
-
+    rescue_from Pundit::NotAuthorizedError, with: :forbidden
+    
     before_action :authenticate_user!, except: [:index, :show]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
     before_action :check_auth, except: [:index, :new, :create, :admin_index, :search_index]

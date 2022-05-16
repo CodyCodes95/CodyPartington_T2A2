@@ -35,11 +35,12 @@
 </section>
 
 
-<%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
+<%# <%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
+<%= link_to "Make an enquiry", new_chat_path, class:"btn btn-success" %>
 
 <% if policy(@listing).edit_or_destroy?  %>
 <div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">
 <%= link_to "Edit", edit_listing_path, class:"btn btn-warning" %>
-<%= button_to('Delete', @listing, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete your listing?" }}, class: "btn btn-danger ms-2") %>
+<%= button_to('Delete', @listing, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete your listing?" }}, class: "btn btn-danger ms-3") %>
 </div>
 <% end %>

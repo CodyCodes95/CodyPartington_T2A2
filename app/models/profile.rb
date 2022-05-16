@@ -4,6 +4,8 @@ class Profile < ApplicationRecord
   has_many :listings
   has_many :buyer_purchases, class_name: 'Purchase', foreign_key: 'buyer_id'
   has_many :seller_purchases, class_name: 'Purchase', foreign_key: 'seller_id'
+  has_many :buyer_chats, class_name: 'Chat', foreign_key: 'buyer_id'
+  has_many :seller_chats, class_name: 'Chat', foreign_key: 'seller_id'
   validates_associated :user
   accepts_nested_attributes_for :address
   validates :first_name, :last_name, :date_of_birth, presence: true
