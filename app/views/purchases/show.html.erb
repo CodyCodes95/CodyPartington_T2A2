@@ -1,2 +1,51 @@
-<h1>Your Purchase</h1>
+<h1 class="mt-3">Purchases</h1>
+<% if @purchases == [] %>
+<h3> You have no purhcases </h3>
+<%else%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Car</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchases.each do |purchase| %>
+    <tr>
+      <td> <%= purchase.date_purchased %> </td>
+      <td> <%= purchase.car.make %> <%= purchase.car.model %> </td>
+      <td> $1 </td>
+      <td> <%= purchase.seller.first_name %> <%= purchase.seller.last_name %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
 
+<h1 class="mt-3">Sold</h1>
+<% if @sales == [] %>
+<h3> You have no sales </h3>
+<%else%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Car</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sales.each do |sale| %>
+    <tr>
+      <td> <%= sale.date_purchased %> </td>
+      <td> <%= sale.car.make %> <%= sale.car.model %> </td>
+      <td> $1 </td>
+      <td> <%= sale.seller.first_name %> <%= sale.seller.last_name %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

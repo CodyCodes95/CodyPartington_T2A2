@@ -1,4 +1,21 @@
 <h1> Listings </h1>
+
+<%= search_form_for(@q, url: listings_admin_path , method: :get) do |f| %>
+  <%= f.label :make %>
+  <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "ALL") %>
+  <%= f.label :make %>
+  <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "ALL") %>
+  <%= f.label :year_from %>
+  <%= f.search_field(:year_gteq_any) %>
+  <%= f.label :year_to %>
+  <%= f.search_field(:year_lteq_any) %>
+  <%= f.label :color %>
+  <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "ALL") %>
+  <%= f.label :mod %>
+  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "ALL") %>
+  <%= f.submit "Search" %>
+<% end %>
+
     <table class="table table-striped">
   <thead>
     <tr>

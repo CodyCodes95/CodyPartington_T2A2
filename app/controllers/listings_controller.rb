@@ -3,25 +3,21 @@ class ListingsController < ApplicationController
 
     before_action :authenticate_user!, except: [:index, :show]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
-    before_action :check_auth, except: [:index, :new, :create, :admin_index]
+    before_action :check_auth, except: [:index, :new, :create, :admin_index, :search_index]
     before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
     before_action :return_modification_types, except: [:index]
-    before_action :return_mod_names, only: [:index]
+    before_action :return_mod_names, only: [:index, :admin_index]
     helper_method :return_mods
 
     def index
         profile_setup
-        @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
-        p '==============================================================='
-       p params
-        p '==============================================================='
-        @listings = @q.result.distinct
+        filter_results
     end
 
     def admin_index
         authorize Listing
-        @listings = Listing.all
+        filter_results
     end
 
     def show; end
@@ -69,6 +65,11 @@ class ListingsController < ApplicationController
     def listing_params
         params.require(:listing).permit(:car_id, :profile_id, :price, :description, :color, :year, car_images: [],
                                                                                                    car_attributes: [:id, :make, :model], modifications_attributes: [:id, :modification_type, :name])
+    end
+
+    def filter_results
+        @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
+        @listings = @q.result.distinct
     end
 
     def set_user

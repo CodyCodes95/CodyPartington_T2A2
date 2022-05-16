@@ -1,14 +1,17 @@
 class PurchasesController < ApplicationController
 
+    include Pundit::Authorization
+     rescue_from Pundit::NotAuthorizedError, with: :forbidden
+
+    before_action :authenticate_user!
+    before_action :check_auth
+
     def index
-        if current_user.has_role? :admin
-            @purchases = Purchase.all
-        else @purchases = current_user.profile.buyer_purchases
-            @sales = current_user.profile.seller_purchases
-        end
+        @orders = Purchase.all
     end
 
     def show
+        find_orders
     end
 
     def create
@@ -26,6 +29,10 @@ class PurchasesController < ApplicationController
         params.permit(:car_id, :buyer_id, :seller_id, :date_purchased)
     end
 
+    def find_orders
+        @purchases = current_user.profile.buyer_purchases
+        @sales = current_user.profile.seller_purchases
+    end
 
 end
 

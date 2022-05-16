@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get 'listings/admin', to: 'listings#admin_index'
   resources :listings
   resources :profiles
-  resources :purchases
+  resources :purchases, except: [:show, :edit, :update]
+  get 'purhcases/myorders', to: 'purchases#show'
 end

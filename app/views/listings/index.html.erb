@@ -4,9 +4,17 @@
 
 <%= search_form_for @q do |f| %>
   <%= f.label :make %>
-  <%= f.select(:car_id_eq, Car.all.collect {|car| [car.make, car.id]}.unshift('ALL')) %>
+  <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "ALL") %>
+  <%= f.label :make %>
+  <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "ALL") %>
+  <%= f.label :year_from %>
+<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "ALL") %>
+  <%= f.label :year_to %>
+<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "ALL") %>
+  <%= f.label :color %>
+  <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "ALL") %>
   <%= f.label :mod %>
-  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}.unshift('ALL')) %>
+  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "ALL") %>
   <%= f.submit "Search" %>
 <% end %>
 
