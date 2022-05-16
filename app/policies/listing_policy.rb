@@ -12,6 +12,10 @@ class ListingPolicy
     true
   end
 
+  def admin_index?
+    return (@user && @user.has_role?(:admin))
+  end
+
   def show?
     true
   end

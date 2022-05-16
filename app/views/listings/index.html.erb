@@ -3,10 +3,12 @@
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
 
 <%= search_form_for @q do |f| %>
-  <%= f.label :Mod %>
-  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}) %>
+  <%= f.label :make %>
+  <%= f.select(:car_id_eq, Car.all.collect {|car| [car.make, car.id]}.unshift('ALL')) %>
+  <%= f.label :mod %>
+  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}.unshift('ALL')) %>
   <%= f.submit "Search" %>
-  <% end %>
+<% end %>
 
 <% if Listing.all.length > 0 %>
   <div class="row">

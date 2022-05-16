@@ -1,7 +1,28 @@
-<h1>
-    Profiles
-   
-</h1>
+<h1> Profiles </h1>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+      <th scope="col">DOB</th>
+      <th scope="col">Member Since</th>
+      <th scope="col">Last Updated</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @profiles.each do |profile| %>
-    <p> <%= link_to profile.first_name, profile %>
+    <tr>
+      <td> <%= profile.id %> </td>
+      <td> <%= profile.first_name %> </td>
+      <td> <%= profile.last_name %> </td>
+      <td> <%= profile.user.email %> </td>
+      <td> <%= profile.date_of_birth %> </td>
+      <td> <%= profile.created_at %> </td>
+      <td> <%= profile.updated_at %> </td>
+      <td> <%= link_to 'View Record', profile %> </td>
+    </tr>
 <% end %>
+  </tbody>
+</table>

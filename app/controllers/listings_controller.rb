@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
 
     before_action :authenticate_user!, except: [:index, :show]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
-    before_action :check_auth, except: [:index, :new, :create]
+    before_action :check_auth, except: [:index, :new, :create, :admin_index]
     before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
     before_action :return_modification_types, except: [:index]
@@ -13,7 +13,15 @@ class ListingsController < ApplicationController
     def index
         profile_setup
         @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
+        p '==============================================================='
+       p params
+        p '==============================================================='
         @listings = @q.result.distinct
+    end
+
+    def admin_index
+        authorize Listing
+        @listings = Listing.all
     end
 
     def show; end

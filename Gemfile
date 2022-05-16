@@ -84,6 +84,7 @@ gem "pundit", "~> 2.2"
 gem "bootstrap", "~> 5.1"
 
 gem "cloudinary", "~> 1.23"
+
 gem "activestorage-cloudinary-service", "~> 0.2.3"
 
 gem "pg", "~> 1.3"
@@ -91,4 +92,5 @@ gem "pg", "~> 1.3"
 gem 'jquery-rails'
 
 gem 'dotenv-rails'
+
 gem "ransack", "~> 3.2"
