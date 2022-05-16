@@ -34,5 +34,9 @@ class PurchasesController < ApplicationController
         @sales = current_user.profile.seller_purchases
     end
 
+    def check_auth
+        authorize Purchase
+    end
+
 end
 

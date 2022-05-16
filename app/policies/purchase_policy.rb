@@ -1,4 +1,4 @@
-class ProfilePolicy < ApplicationPolicy
+class PurchasePolicy < ApplicationPolicy
 
     def index?
         @user.has_role?(:admin)

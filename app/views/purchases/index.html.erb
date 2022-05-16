@@ -1,0 +1,26 @@
+<h1 class="mt-3">Orders</h1>
+<% if @orders == ![] %>
+<%else%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Car</th>
+      <th scope="col">Price</th>
+      <th scope="col">Buyer</th>
+      <th scope="col">Seller</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <td> <%= order.date_purchased %> </td>
+      <td> <%= order.car.make %> <%= order.car.model %> </td>
+      <td> $1 </td>
+      <td> <%= order.buyer.first_name %> <%= order.buyer.last_name %> </td>
+      <td> <%= order.seller.first_name %> <%= order.seller.last_name %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
