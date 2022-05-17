@@ -9,7 +9,6 @@ class ListingsController < ApplicationController
     before_action :return_images, only: [:show]
     before_action :return_modification_types, except: [:index]
     before_action :return_mod_names, only: [:index, :admin_index]
-    before_action :remove_blank_mods, only: [:show]
     helper_method :return_mods
 
     def index
