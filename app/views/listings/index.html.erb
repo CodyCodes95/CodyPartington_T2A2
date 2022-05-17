@@ -3,23 +3,15 @@
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary mb-2") %>
 
 <%= search_form_for @q do |f| %>
-  <%= f.label :make %>
-  <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "ALL") %>
-  <%= f.label :make %>
-  <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "ALL") %>
-  <%= f.label :year_from %>
-<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "ALL") %>
-  <%= f.label :year_to %>
-<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "ALL") %>
-  <%= f.label :color %>
-  <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "ALL") %>
-  <%= f.label :mod %>
-  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "ALL") %>
+  <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "Make") %>
+  <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "Model") %>
+<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "From") %>
+<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "To") %>
+  <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "Color") %>
+  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "Modification") %>
   <div>
-  <%= f.label :state %>
-  <%= f.select(:profile_address_state_eq, Address.all.collect {|address| [address.state, address.state]}, include_blank: "ALL") %>
-  <%= f.label :city %>
-  <%= f.select(:profile_address_city_eq, Address.all.collect {|address| [address.city, address.city]}, include_blank: "ALL") %>
+  <%= f.select(:profile_address_state_eq, Address.all.collect {|address| [address.state, address.state]}, include_blank: "State") %>
+  <%= f.select(:profile_address_city_eq, Address.all.collect {|address| [address.city, address.city]}, include_blank: "City") %>
   </div>
   <%= f.submit "Search", class:'btn btn-primary mt-2' %>
 <% end %>
