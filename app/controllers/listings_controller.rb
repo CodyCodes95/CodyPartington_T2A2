@@ -27,6 +27,10 @@ class ListingsController < ApplicationController
         authorize Listing
         @listing = Listing.new
         @listing.modifications.build
+        @listing.modifications.build
+        @listing.modifications.build
+        @listing.modifications.build
+        @listing.modifications.build
         @listing.build_car
     end
 
