@@ -50,9 +50,10 @@ class ListingsController < ApplicationController
     def update
         @listing.update(listing_params)
         if @listing.valid?
-        redirect_to @listing
+            remove_blank_mods
+            redirect_to @listing
         else
-      show_error_retry(@listing, 'edit')
+            show_error_retry(@listing, 'edit')
         end
     end
 

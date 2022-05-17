@@ -47,8 +47,10 @@
     <%end%>
 <% end %>
 
+<% if @listing.year == nil %>
 <h5 class='mt-3'>Car Images</h5>
     <%= f.file_field :car_images, multiple: true, class:'form-control mt-2', type:'file', id:'formFile' %>
+    <% end %>
     <br> <br>
   </div>
   <div>
