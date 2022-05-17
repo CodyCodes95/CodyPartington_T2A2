@@ -16,7 +16,7 @@
     <tr>
       <td> <%= order.date_purchased %> </td>
       <td> <%= order.car.make %> <%= order.car.model %> </td>
-      <td> $1 </td>
+      <td> <%= order.price / 100 %> </td>
       <td> <%= order.buyer.first_name %> <%= order.buyer.last_name %> </td>
       <td> <%= order.seller.first_name %> <%= order.seller.last_name %> </td>
     </tr>

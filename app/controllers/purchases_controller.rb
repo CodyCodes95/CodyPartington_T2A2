@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
     before_action :authenticate_user!
     before_action :find_orders
-    before_action :check_auth, except: [:show]
+    before_action :check_auth, except: [:show, :create]
 
     def index
         @orders = Purchase.all
@@ -16,9 +16,10 @@ class PurchasesController < ApplicationController
     end
 
     def create
-        @purchase = Purchase.create(purchase_params)
+        Listing.destroy(purchase_params[:listing_id])
+        @purchase = Purchase.create(purchase_params.except(:listing_id))
             if @purchase.valid?
-            redirect_to @purchase
+            redirect_to purchases_path
         else
             show_error_retry(@listing, 'show')
         end
@@ -27,7 +28,7 @@ class PurchasesController < ApplicationController
     private
 
     def purchase_params
-        params.permit(:car_id, :buyer_id, :seller_id, :date_purchased)
+        params.permit(:car_id, :buyer_id, :seller_id, :date_purchased, :listing_id, :price)
     end
 
     def find_orders

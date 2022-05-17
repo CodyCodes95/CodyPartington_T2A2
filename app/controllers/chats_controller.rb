@@ -31,10 +31,20 @@ class ChatsController < ApplicationController
        redirect_to @chat
     end
 
+    def update
+        p params
+        @chat.update!(offer_params)
+        redirect_to @chat
+    end
+
     private
 
     def chat_params
         params.permit(:car_id, :buyer_id, :seller_id, :listing_id)
+    end
+
+    def offer_params
+         params.require(:chat).permit(:offer)
     end
 
     def messages_params
@@ -43,6 +53,7 @@ class ChatsController < ApplicationController
 
     def find_chat
         @chat = Chat.find(params[:id])
+        @sender = current_user.profile.id
     end
 
     def check_auth

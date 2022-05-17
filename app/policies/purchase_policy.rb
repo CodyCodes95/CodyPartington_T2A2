@@ -11,4 +11,5 @@ class PurchasePolicy < ApplicationPolicy
     def destroy?
         index?
     end
+    
 end

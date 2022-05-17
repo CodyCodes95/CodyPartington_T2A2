@@ -33,7 +33,6 @@
     <%= @listing.profile.first_name %> <%= @listing.profile.last_name %>, <%= @listing.profile.user.email %>
     <span class="d-block"> <%= @listing.profile.address.city %> <%= @listing.profile.address.postcode %> </span>
     </section>
-    <%# <%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
     <%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post, class:'btn btn-success mt-1' %>
 <% else %>
     <h3> <%= current_user ? '' : 'Log in to contact seller' %> </h3>
