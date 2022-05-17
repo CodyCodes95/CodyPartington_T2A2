@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ListingPolicy
+class ListingPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -33,11 +33,6 @@ class ListingPolicy
   end
 
   def edit?
-    p'================================='
-    p @user
-    p'================================='
-    p @record
-    p'================================='
     update?
   end
 

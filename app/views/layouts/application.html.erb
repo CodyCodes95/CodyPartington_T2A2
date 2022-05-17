@@ -16,6 +16,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+          <%if user_signed_in? && current_user.profile %>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
@@ -23,12 +24,13 @@
               <%= link_to 'Messages', chats_path, class: 'nav-link d-inline' %>
             </li>
           </ul>
+          <% end %>
             <%if user_signed_in? %>
               <%if current_user.profile %>
                 Welcome <%= link_to current_user.profile.first_name, "/profiles/#{current_user.profile.id}", class: 'nav-link' %>
-                <%else%>
+                <% else %>
                 Welcome <%= current_user.email %>
-                <%end%>
+                <% end %>
               <div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">
                 <%= link_to "Admin", admin_path, class:"btn btn-success me-3" if current_user.has_role? :admin %>
                 <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-danger', method: :delete, form: { data: { turbo_confirm: "Are you sure you want to log out?" } } %>

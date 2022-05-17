@@ -1,0 +1,16 @@
+<h1>Chat for <%= @chat.listing.year %> <%= @chat.listing.car.make %> <%= @chat.listing.car.model %></h1>
+
+<%if @chat.messages == []%>
+    <h4>Send an enquiry</h4>
+<% else %>
+<div class="w-50 p-3 d-flex flex-column ">
+    <% @chat.messages.each do |message| %>
+    <h6><%= message.profile.first_name %> <%= message.profile.last_name %></h6>
+    <div class='bg-light bg-gradient'>
+    <p><%= message.content %> <%= cl_image_tag message.message_attachment.key , :height=>199, :crop=>"fill", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] if message.message_attachment.attached? %> </p>
+    </div>
+    <% end %>
+</div>
+<% end %>
+
+<%= render 'message' %>

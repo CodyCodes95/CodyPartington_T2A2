@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_16_082200) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_17_032258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,8 +60,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_082200) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chats", force: :cascade do |t|
+  create_table "chat_messages", force: :cascade do |t|
+    t.bigint "chat_id", null: false
     t.bigint "message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_chat_messages_on_chat_id"
+    t.index ["message_id"], name: "index_chat_messages_on_message_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
     t.bigint "buyer_id", null: false
     t.bigint "seller_id", null: false
     t.bigint "listing_id", null: false
@@ -69,7 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_082200) do
     t.datetime "updated_at", null: false
     t.index ["buyer_id"], name: "index_chats_on_buyer_id"
     t.index ["listing_id"], name: "index_chats_on_listing_id"
-    t.index ["message_id"], name: "index_chats_on_message_id"
     t.index ["seller_id"], name: "index_chats_on_seller_id"
   end
 
@@ -99,6 +106,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_082200) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "profile_id", null: false
+    t.bigint "chat_id", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["profile_id"], name: "index_messages_on_profile_id"
   end
 
   create_table "modifications", force: :cascade do |t|
@@ -164,14 +175,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_082200) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chat_messages", "chats"
+  add_foreign_key "chat_messages", "messages"
   add_foreign_key "chats", "listings"
-  add_foreign_key "chats", "messages"
   add_foreign_key "chats", "profiles", column: "buyer_id"
   add_foreign_key "chats", "profiles", column: "seller_id"
   add_foreign_key "listing_modifications", "listings"
   add_foreign_key "listing_modifications", "modifications"
   add_foreign_key "listings", "cars"
   add_foreign_key "listings", "profiles"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "profiles"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "users"
   add_foreign_key "purchases", "cars"

@@ -36,7 +36,7 @@
 
 
 <%# <%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
-<%= link_to "Make an enquiry", new_chat_path, class:"btn btn-success" %>
+<%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post if current_user  %>
 
 <% if policy(@listing).edit_or_destroy?  %>
 <div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">

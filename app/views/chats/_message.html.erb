@@ -1,0 +1,7 @@
+<%= form_with model: @message, data:{turbo:false} do |f| %>
+        <%= f.hidden_field :profile_id, value: @chat.buyer_id %>
+        <%= f.hidden_field :chat_id, value: @chat.id %>
+        <%= f.text_area :content %> 
+        <%= f.file_field :message_attachment, class:'form-control', type:'file', id:'formFile' %>
+ <%= f.submit %>
+<% end %>
