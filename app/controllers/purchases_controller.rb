@@ -4,7 +4,8 @@ class PurchasesController < ApplicationController
      rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
     before_action :authenticate_user!
-    before_action :check_auth
+    before_action :find_orders
+    before_action :check_auth, except: [:show]
 
     def index
         @orders = Purchase.all
@@ -35,7 +36,8 @@ class PurchasesController < ApplicationController
     end
 
     def check_auth
-        authorize Purchase
+        authorize @purchases
+        authorize @sales
     end
 
 end

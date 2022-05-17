@@ -1,7 +1,9 @@
 <%= form_with model: @message, data:{turbo:false} do |f| %>
+<div class="w-50">
         <%= f.hidden_field :profile_id, value: @chat.buyer_id %>
         <%= f.hidden_field :chat_id, value: @chat.id %>
-        <%= f.text_area :content %> 
-        <%= f.file_field :message_attachment, class:'form-control', type:'file', id:'formFile' %>
- <%= f.submit %>
+        <%= f.text_area :content, class:'form-control', rows:'3' %> 
+        <%= f.file_field :message_attachment, class:'form-control mt-2', type:'file', id:'formFile' %>
+         <%= f.submit class:'mt-2' %>
+ </div>
 <% end %>

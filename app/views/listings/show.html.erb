@@ -28,19 +28,20 @@
     <% end %>
 <% end %>
 
-<h3 class="mt-3">Contact Seller</h3>
-
-<%= @listing.profile.first_name %> <%= @listing.profile.last_name %>, <%= @listing.profile.user.email %>
-<span class="d-block"> <%= @listing.profile.address.city %> <%= @listing.profile.address.postcode %> </span>
-</section>
-
-
-<%# <%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
-<%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post if current_user  %>
+<% if current_user && current_user.profile.id != @listing.profile.id %>
+    <h3 class="mt-3">Contact Seller</h3>
+    <%= @listing.profile.first_name %> <%= @listing.profile.last_name %>, <%= @listing.profile.user.email %>
+    <span class="d-block"> <%= @listing.profile.address.city %> <%= @listing.profile.address.postcode %> </span>
+    </section>
+    <%# <%= button_to('Purchase', purchases_path, method: :post, params: {seller_id:@listing.profile.id, buyer_id:current_user.profile.id, date_purchased:Time.now, car_id:@listing.car.id}, form: { data: { turbo_confirm: "Are you sure you want to buy this car?" }}, class: "btn btn-success mt-2") if current_user %>
+    <%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post, class:'btn btn-success mt-1' %>
+<% else %>
+    <h3> <%= current_user ? '' : 'Log in to contact seller' %> </h3>
+<% end %>
 
 <% if policy(@listing).edit_or_destroy?  %>
-<div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">
-<%= link_to "Edit", edit_listing_path, class:"btn btn-warning" %>
-<%= button_to('Delete', @listing, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete your listing?" }}, class: "btn btn-danger ms-3") %>
-</div>
+    <div class="btn-toolbar mb-1 mt-2" role="toolbar" aria-label="Toolbar with button groups">
+    <%= link_to "Edit", edit_listing_path, class:"btn btn-warning" %>
+    <%= button_to('Delete', @listing, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to delete your listing?" }}, class: "btn btn-danger ms-3") %>
+    </div>
 <% end %>

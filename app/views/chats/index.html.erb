@@ -8,7 +8,7 @@
       <div class="card">
       <%= cl_image_tag chat.listing.car_images_attachments.first.key , :background=>"white", :height=>300, :width=>500, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-responsive center-block d-block mx-auto" %>
         <div class="card-body">
-          <h4 class="card-text text-center"><%= chat.messages.first.content %></h4>
+          <h4 class="card-text text-center"><%= chat.messages.last.content %></h4>
           <ul class="list-group list-group-flush">
       <li class="list-group-item text-center">$<%= chat.listing.price / 100 %></li>
       <li class="list-group-item text-center"><%= chat.listing.profile.address.state %> <%= chat.listing.profile.address.postcode %></li>
@@ -28,7 +28,9 @@
       <div class="card">
       <%= cl_image_tag chat.listing.car_images_attachments.first.key , :background=>"white", :height=>300, :width=>500, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-responsive center-block d-block mx-auto" %>
         <div class="card-body">
-          <h4 class="card-text text-center"><%= chat.messages.first.content %></h4>
+          <h5 class="card-text text-center"><%= chat.messages.last.profile.first_name %>:</h5>
+          <h4 class="card-text text-center"><%= chat.messages.last.content %></h4>
+          <h6 class="card-text text-center"><%= distance_of_time_in_words(chat.messages.last.created_at, Time.now, include_seconds: true) %> ago</h6>
           <ul class="list-group list-group-flush">
       <li class="list-group-item text-center">$<%= chat.listing.price / 100 %></li>
       <li class="list-group-item text-center"><%= chat.listing.profile.address.state %> <%= chat.listing.profile.address.postcode %></li>
