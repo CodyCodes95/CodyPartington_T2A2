@@ -94,6 +94,7 @@ GEM
     cloudinary (1.23.0)
       aws_cf_signer
       rest-client (>= 2.0.0)
+    cocoon (1.2.15)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     cssbundling-rails (1.1.0)
@@ -289,6 +290,7 @@ DEPENDENCIES
   bootstrap (~> 5.1)
   capybara
   cloudinary (~> 1.23)
+  cocoon
   cssbundling-rails
   debug
   devise (~> 4.8)

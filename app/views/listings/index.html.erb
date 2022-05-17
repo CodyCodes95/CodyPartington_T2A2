@@ -1,6 +1,6 @@
 <h1 class="display-1">Listings</h1>
 
-<%= link_to('New Listing', new_listing_path, class: "btn btn-primary") %>
+<%= link_to('New Listing', new_listing_path, class: "btn btn-primary mb-2") %>
 
 <%= search_form_for @q do |f| %>
   <%= f.label :make %>
@@ -15,7 +15,13 @@
   <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "ALL") %>
   <%= f.label :mod %>
   <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "ALL") %>
-  <%= f.submit "Search" %>
+  <div>
+  <%= f.label :state %>
+  <%= f.select(:profile_address_state_eq, Address.all.collect {|address| [address.state, address.state]}, include_blank: "ALL") %>
+  <%= f.label :city %>
+  <%= f.select(:profile_address_city_eq, Address.all.collect {|address| [address.city, address.city]}, include_blank: "ALL") %>
+  </div>
+  <%= f.submit "Search", class:'btn btn-primary mt-2' %>
 <% end %>
 
 <% if Listing.all.length > 0 %>

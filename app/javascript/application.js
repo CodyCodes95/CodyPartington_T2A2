@@ -5,3 +5,5 @@ import * as bootstrap from "bootstrap"
 //= require jquery
 //= require bootstrap-sprockets
 //= require popper
+require("jquery");
+//= require @nathanvda/cocoon

@@ -1,15 +1,15 @@
 <%= form_with model: @listing, data:{turbo:false} do |f| %>
 <%= f.hidden_field :profile_id, value: @profile_id %>
 
-<h3>Car</h3>
+<h3 class="mt-2">Car</h3>
 <div>
     <%= f.fields_for :car do |f| %>
         <%= f.text_field :make, placeholder: "Make" %>
         <%= f.text_field :model, placeholder: "Model" %>
         <%end%>
   </div>
-  
-  <h3>Details</h3>
+
+  <h3 class="mt-2">Details</h3>
 <div class="actions mt-2">
 <%= f.number_field :year, placeholder: "Year" %>
 </div>
@@ -29,17 +29,21 @@
 <h3>Modifications</h3>
 
 <% @mod_types.each do |type| %>
-<h5> <%= type %> </h5>
-<% if @listing.year != nil%>
-    <%= f.fields_for :modifications, @listing.modifications.where(modification_type:type) do |f| %>
-        <%= f.hidden_field :modification_type, value: type %>
-        <%= f.text_field :name %>
-    <%end%>
+    <h5> <%= type %> </h5>
+    <% if @listing.year != nil%>
+        <%= f.fields_for :modifications, @listing.modifications.where(modification_type:type) do |f| %>
+            <%= f.hidden_field :modification_type, value: type %>
+            <%= f.text_field :name %>
+        <%end%>
     <% else %>
-    <%= f.fields_for :modifications do |f| %>
-        <%= f.hidden_field :modification_type, value: type %>
-        <%= f.text_field :name %>
-    <%end%>
+        <%= f.fields_for :modifications do |f| %>
+        <div class="nested-fields">
+            <div class="field">
+            <%= f.hidden_field :modification_type, value: type %>
+            <%= f.text_field :name %>
+            </div>
+        </div>
+        <%end%>
     <%end%>
 <% end %>
 

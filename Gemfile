@@ -94,3 +94,5 @@ gem 'jquery-rails'
 gem 'dotenv-rails'
 
 gem "ransack", "~> 3.2"
+
+gem "cocoon"
