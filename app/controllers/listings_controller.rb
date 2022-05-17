@@ -9,6 +9,7 @@ class ListingsController < ApplicationController
     before_action :return_images, only: [:show]
     before_action :return_modification_types, except: [:index]
     before_action :return_mod_names, only: [:index, :admin_index]
+    before_action :remove_blank_mods, only: [:show]
     helper_method :return_mods
 
     def index
@@ -36,8 +37,9 @@ class ListingsController < ApplicationController
 
     def create
         authorize Listing
-        @listing = Listing.create(listing_params)
+        @listing = Listing.create(listing_params.compact_blank!)
         if @listing.valid?
+            remove_blank_mods
             redirect_to @listing
         else
             show_error_retry(@listing, 'new')
@@ -94,6 +96,14 @@ class ListingsController < ApplicationController
         return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
         else
           return Modification.where(modifications: { modification_type: mod_type })
+        end
+    end
+
+    def remove_blank_mods
+        Modification.all.each do |mod|
+            if mod.name ==""
+                mod.destroy!
+            end
         end
     end
 
