@@ -4,33 +4,26 @@
 <h3>Car</h3>
 <div>
     <%= f.fields_for :car do |f| %>
-        <%= f.label :make %>
-        <%= f.text_field :make %>
-
-        <%= f.label :model %>
-        <%= f.text_field :model %>
+        <%= f.text_field :make, placeholder: "Make" %>
+        <%= f.text_field :model, placeholder: "Model" %>
         <%end%>
   </div>
   
   <h3>Details</h3>
-<div class="actions">
-<%= f.label :year %>
-<%= f.number_field :year %>
+<div class="actions mt-2">
+<%= f.number_field :year, placeholder: "Year" %>
 </div>
 
-<div class="actions">
-<%= f.label :color %>
-<%= f.text_field :color %>
+<div class="actions mt-2">
+<%= f.text_field :color, placeholder: "Color" %>
 </div>
 
-<div class="actions">
-<%= f.label :price %>
-<%= f.number_field :price %>
+<div class="actions mt-2">
+<%= f.number_field :price, placeholder: "Price" %>
 </div>
 
-<div class="actions">
-<%= f.label :description %>
-<%= f.text_area :description %>
+<div class="actions mt-2" id='description-div'>
+<%= f.text_area :description, placeholder: "Description" %>
 </div>
 
 <h3>Modifications</h3>
@@ -50,11 +43,11 @@
     <%end%>
 <% end %>
 
-<h5>Car Images</h5>
-    <%= f.file_field :car_images, multiple: true %>
+<h5 class='mt-3'>Car Images</h5>
+    <%= f.file_field :car_images, multiple: true, class:'form-control mt-2', type:'file', id:'formFile' %>
     <br> <br>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-primary'%>
 </div>
 <% end %>
