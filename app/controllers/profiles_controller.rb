@@ -1,10 +1,10 @@
 class ProfilesController < ApplicationController
     include Pundit::Authorization
-     rescue_from Pundit::NotAuthorizedError, with: :forbidden
-     
-     before_action :authenticate_user!
-     before_action :set_user, only: [:show, :edit, :update, :make_admin]
-     before_action :check_auth, except: [:index]
+    rescue_from Pundit::NotAuthorizedError, with: :forbidden
+
+    before_action :authenticate_user!
+    before_action :set_user, only: [:show, :edit, :update, :make_admin]
+    before_action :check_auth, except: [:index]
     before_action :set_id, only: [:new, :edit]
 
     def index
@@ -30,8 +30,7 @@ class ProfilesController < ApplicationController
         @profile.build_address
     end
 
-    def show;
-     end
+    def show; end
 
     def edit; end
 
@@ -54,7 +53,7 @@ class ProfilesController < ApplicationController
 
     def profile_params
         params.require(:profile).permit(:user_id, :first_name, :last_name, :date_of_birth, :avatar,
-            address_attributes: [:id, :street_number, :street_name, :city, :state, :postcode, :country])
+                                        address_attributes: [:id, :street_number, :street_name, :city, :state, :postcode, :country])
     end
 
     def make_admin_params
@@ -70,11 +69,10 @@ class ProfilesController < ApplicationController
     end
 
     def check_auth
-        if current_user && current_user.profile != nil
+        if current_user && !current_user.profile.nil?
         authorize @profile
         else
             authorize Profile
         end
     end
-
 end
