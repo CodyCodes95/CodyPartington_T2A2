@@ -21,7 +21,7 @@
 <% if Listing.all.length > 0 %>
   <div class="row">
   <% @listings.each do |listing| %>
-    <div class="col-sm-6 mt-3">
+    <div class="col-md-6 mt-3">
       <div class="card">
       <div >
       <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>1000, :width=>1500, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid center-block d-block mx-auto" %>
