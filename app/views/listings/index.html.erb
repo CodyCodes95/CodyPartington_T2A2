@@ -5,8 +5,10 @@
 <%= search_form_for @q do |f| %>
   <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "Make") %>
   <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "Model") %>
-<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "From") %>
-<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "To") %>
+<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "Year From") %>
+<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "Year To") %>
+<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.price / 100, listing.price]}, include_blank: "Price From") %>
+<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.price / 100, listing.price]}, include_blank: "Price To") %>
   <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "Color") %>
   <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "Modification") %>
   <div>
@@ -26,7 +28,7 @@
           <h3 class="card-title text-center"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h3>
           <p class="card-text text-center"><%= listing.description %></p>
           <ul class="list-group list-group-flush">
-      <li class="list-group-item text-center">$<%= listing.price / 100 %></li>
+      <li class="list-group-item text-center">$<%= listing.price %></li>
       <li class="list-group-item text-center"><%= listing.color.capitalize %></li>
       <li class="list-group-item text-center"><%= listing.profile.address.state %> <%= listing.profile.address.postcode %></li>
       <li class="list-group-item text-center"><%= link_to "View listing", listing, class:"btn btn-outline-info" %></li>

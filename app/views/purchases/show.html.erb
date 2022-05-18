@@ -16,7 +16,7 @@
     <tr>
       <td> <%= purchase.date_purchased %> </td>
       <td> <%= purchase.car.make %> <%= purchase.car.model %> </td>
-      <td> $1 </td>
+      <td> purchase.price </td>
       <td> <%= purchase.seller.first_name %> <%= purchase.seller.last_name %> </td>
     </tr>
     <% end %>
@@ -42,7 +42,7 @@
     <tr>
       <td> <%= sale.date_purchased %> </td>
       <td> <%= sale.car.make %> <%= sale.car.model %> </td>
-      <td> $1 </td>
+      <td> sale.price </td>
       <td> <%= sale.seller.first_name %> <%= sale.seller.last_name %> </td>
     </tr>
     <% end %>

@@ -28,6 +28,10 @@ class ProfilePolicy < ApplicationPolicy
     @user.has_role?(:admin)
   end
 
+  def make_admin?
+    destroy?
+  end
+
   private
 
   def admin_or_owns

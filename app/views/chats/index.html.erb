@@ -34,7 +34,7 @@
           <h4 class="card-text text-center"><%= chat.messages.last.content %></h4>
           <h6 class="card-text text-center"><%= distance_of_time_in_words(chat.messages.last.created_at, Time.now, include_seconds: true) %> ago</h6>
           <ul class="list-group list-group-flush">
-      <li class="list-group-item text-center"><%= chat.offer == 0 ? "Asking:#{chat.listing.price / 100}" : "Current offer: $#{chat.offer / 100}" %></li>
+      <li class="list-group-item text-center"><%= chat.offer == 0 ? "Asking:#{chat.listing.price}" : "Current offer: $#{chat.offer / 100}" %></li>
       <li class="list-group-item text-center"><%= chat.listing.profile.address.state %> <%= chat.listing.profile.address.postcode %></li>
       <li class="list-group-item text-center"><%= link_to "View messages", chat, class:"btn btn-info" %></li>
     </ul>

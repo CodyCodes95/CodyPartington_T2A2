@@ -21,7 +21,7 @@
 <% if current_user.profile.id == @chat.buyer_id %>
         <h3 class='mt-3'>Make offer</h3>
         <% if @chat.offer != 0 %>
-        <h6 class='mt-3'>Current offer: $<%= @chat.offer / 100 %></h6>
+        <h6 class='mt-3'>Current offer: $<%= @chat.offer %></h6>
         <% end %>
         <%= form_with model: @chat, data:{turbo:false} do |f| %>
 <div class="w-50">
@@ -32,7 +32,7 @@
 <% elsif @chat.offer != 0 %>
         <h3 class='mt-3'>Current offer: $<%= @chat.offer / 100 %></h3>
         <%= button_to('Accept offer', purchases_path, method: :post, params: {seller_id:current_user.profile.id, buyer_id:@chat.buyer.id, date_purchased:Time.now, car_id:@chat.listing.car.id, listing_id:@chat.listing.id, price:@chat.offer}, form: { data: { turbo_confirm: "Are you sure you want to accept this offer?" }}, class: "btn btn-success mt-2") %>
-        <%= button_to('Reject offer', @chat, method: :put, params: {profile_id:@current_user.profile.id, chat_id:@chat.id, content:"#{current_user.profile.first_name} has rejected your offer of $#{@chat.offer / 100}"}, form: { data: { turbo_confirm: "Are you sure you want to reject this offer?" }}, class: "btn btn-danger mt-2") %>
+        <%= button_to('Reject offer', @chat, method: :put, params: {profile_id:@current_user.profile.id, chat_id:@chat.id, content:"#{current_user.profile.first_name} has rejected your offer of $#{@chat.offer}"}, form: { data: { turbo_confirm: "Are you sure you want to reject this offer?" }}, class: "btn btn-danger mt-2") %>
 <% else %>
         <h3>No current offer</h3>
 <% end %>

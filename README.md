@@ -35,7 +35,7 @@ The purpose of my marketplace app is to faciliate the discovery, buying and sell
 
 <li>Functionality to start a chat with a seller of a car, and send an offer</li>
 
-<li>Ability for seller to reject offer</li>
+<li>Ability for seller to reject offer. If a seller rejects an offer, the buyer is notified that the offer has been rejected and is free to give antoher offer.</li>
 
 <li>Ability for seller to accept offer, which delists the car and adds it to the buyers orders as a purchase, and the sellers orders as a sale</li>
 
@@ -43,7 +43,7 @@ The purpose of my marketplace app is to faciliate the discovery, buying and sell
 
 <li>Users can view their previous purchases/sales</li>
 
-<li>Site administrators have access to an admin dashboard which allow a nice GUI for CRUD of all entities</li>
+<li>Site administrators have access to an admin dashboard which allow a nice GUI for CRUD of all entities, and can also create other site admins through this dashboard</li>
 </ul>
 
 **Sitemap**

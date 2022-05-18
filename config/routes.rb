@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'admin', to: 'admins#index'
   get 'listings/admin', to: 'listings#admin_index'
   resources :listings
-  resources :profiles
+  resources :profiles, except: [:update]
+  patch 'profiles/:id', to: 'profiles#update'
+  put 'profiles/:id', to: 'profiles#make_admin'
   resources :chats, except: [:new, :update]
   patch 'chats/:id', to: 'chats#update'
   put 'chats/:id', to: 'chats#reject_offer'

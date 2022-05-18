@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
      rescue_from Pundit::NotAuthorizedError, with: :forbidden
      
      before_action :authenticate_user!
-     before_action :set_user, only: [:show, :edit, :update]
+     before_action :set_user, only: [:show, :edit, :update, :make_admin]
      before_action :check_auth, except: [:index]
     before_action :set_id, only: [:new, :edit]
 
@@ -44,11 +44,21 @@ class ProfilesController < ApplicationController
         end
     end
 
+    def make_admin
+        @user = User.find(make_admin_params[:user_id])
+        @user.has_role?(:admin) ? @user.remove_role(:admin) : @user.add_role(:admin)
+        redirect_to @profile
+    end
+
   private
 
     def profile_params
         params.require(:profile).permit(:user_id, :first_name, :last_name, :date_of_birth, :avatar,
             address_attributes: [:id, :street_number, :street_name, :city, :state, :postcode, :country])
+    end
+
+    def make_admin_params
+        params.permit(:user_id)
     end
 
     def set_user
