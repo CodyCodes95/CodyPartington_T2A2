@@ -96,3 +96,5 @@ gem 'dotenv-rails'
 gem "ransack", "~> 3.2"
 
 gem "cocoon"
+
+gem 'sitemap_generator'
