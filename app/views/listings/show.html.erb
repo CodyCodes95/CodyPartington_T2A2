@@ -2,7 +2,7 @@
 
   <div class="row align-items-center">
 <% @images.each do |image| %>
-<div class="col">
+<div class="col-md">
     <%= cl_image_tag image.key , crop:'scale', :background=>"white", :width=>600, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid" %>
     </div>
 <%end%>
