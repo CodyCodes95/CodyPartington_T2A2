@@ -1,8 +1,14 @@
 <h1> <%= @listing.year%> <%= @listing.car.make %> <%= @listing.car.model %> </h1>
 
+  <div class="row align-items-center">
 <% @images.each do |image| %>
-    <%= cl_image_tag image.key , crop:'scale', :background=>"white", :width=>600, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] %>
+<div class="col">
+    <%= cl_image_tag image.key , crop:'scale', :background=>"white", :width=>600, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid" %>
+    </div>
 <%end%>
+</div>
+</div>
+
 <section class="mt-3">
 <h3>$<%= @listing.price %> </h3>
 

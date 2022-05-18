@@ -1,4 +1,4 @@
-<h1>Listings</h1>
+<h1 class="display-1">Listings</h1>
 
 <%= link_to('New Listing', new_listing_path, class: "btn btn-primary mb-2") %>
 
@@ -23,8 +23,8 @@
   <% @listings.each do |listing| %>
     <div class="col-sm-6 mt-3">
       <div class="card">
-      <div>
-      <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>500, :width=>750, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-responsive center-block d-block mx-auto" %>
+      <div >
+      <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>1000, :width=>1500, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid center-block d-block mx-auto" %>
       </div>
         <div class="card-body">
           <h3 class="card-title text-center"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h3>
