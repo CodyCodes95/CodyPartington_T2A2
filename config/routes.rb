@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'listings/admin', to: 'listings#admin_index'
   resources :listings
   resources :profiles
-  resources :chats, except: [:new]
+  resources :chats, except: [:new, :update]
+  patch 'chats/:id', to: 'chats#update'
+  put 'chats/:id', to: 'chats#reject_offer'
   post 'chats/new/:id', to: 'chats#new', as: 'new_chat'
   resources :purchases, except: [:show, :edit, :update, :destroy]
   get 'purhcases/myorders', to: 'purchases#show'

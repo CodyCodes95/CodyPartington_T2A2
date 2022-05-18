@@ -36,7 +36,7 @@ class ListingsController < ApplicationController
 
     def create
         authorize Listing
-        @listing = Listing.create(listing_params.compact_blank!)
+        @listing = Listing.create(listing_params)
         if @listing.valid?
             remove_blank_mods
             redirect_to @listing
@@ -80,7 +80,7 @@ class ListingsController < ApplicationController
     end
 
     def set_user
-        @profile_id = current_user.id
+        @profile_id = current_user.profile.id
     end
 
     def check_auth

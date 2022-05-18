@@ -22,9 +22,33 @@ https://github.com/CodyCodes95/CodyPartington_T2A2
 
 **Purpose**
 
+The purpose of my marketplace app is to faciliate the discovery, buying and selling of modified cars, and give users all the functionality they need to either buy, or sell a modified car.
+
 **Functionality / features**
 
+<ul>
+<li>Registered users are able to create a profile with their personal information, with the option to attach an avatar.</li>
+
+<li>Users can create, update and destroy listing once a profile has been created. </li>
+
+<li>Ability to search through liistings with filters such as make, model, price, location, modifications.</li>
+
+<li>Functionality to start a chat with a seller of a car, and send an offer</li>
+
+<li>Ability for seller to reject offer</li>
+
+<li>Ability for seller to accept offer, which delists the car and adds it to the buyers orders as a purchase, and the sellers orders as a sale</li>
+
+<li>Ability to attach image to chat messages</li>
+
+<li>Users can view their previous purchases/sales</li>
+
+<li>Site administrators have access to an admin dashboard which allow a nice GUI for CRUD of all entities</li>
+</ul>
+
 **Sitemap**
+
+Located at /src/sitemap.xml 
 
 **Screenshots**
 
@@ -33,9 +57,19 @@ https://github.com/CodyCodes95/CodyPartington_T2A2
 <li>Buyers interested in purchasing a modified car.</li>
 <li>Sellers of modified cars.</li>
 </ul>
+
 **Tech stack (e.g. html, css, deployment platform, etc)**
 
+<ul>
+<li>Ruby on Rails</li>
+<li>PostgreSQL - Database</li>
+<li>Bootstrap - styling</li>
+<li>Heroku - Deployment</li>
+</ul>
+
 **R12. User stories for your app**
+
+https://github.com/CodyCodes95/CodyPartington_T2A2/projects/2
 
 **R13. Wireframes for your app**
 
@@ -45,10 +79,19 @@ https://github.com/CodyCodes95/CodyPartington_T2A2
 
 **R15. Explain the different high-level components (abstractions) in your app**
 
+The listing entity holds most of the required data for a listing. The car make and model is abstracted into its own entity, which the listing references. This is so that there can be multiple cars listed with the same make and model, without duplicate tuples. The same process is applied to modifications, which listings references through a listing_modifications join table. Once again, this is to allow there to be many listings with the same modifications, and no duplicate data. A listing also references ActiveStorage to retrieve attachment images for any particular listing.
+
+The purchase entity is designed to hold a record of all listings which have been purchased through the application. A purchase references a car as the item purchased, and gets the value of the purchase from the offer that was accepted to create the purchase. A purchase also references a buyer and a seller through the profile entity.
+
+As Devise is used to handle user registrations, a user's profile is abstracted away into its own entity. 
+
+The chat entity is what the app uses to create a conversation between a buyer and seller. A chat references a buyer and seller via a profile ID, and a listing by a listing ID. Messages are abstracted into a separate entity, which contain the content of the message and the sender via a profile ID. A message belongs to the chat which it was created in.
+
 **R16. Detail any third party services that your app will use**
 
 <ul>
 <li>Cloudinary is utilised for upload of images for car listings, user avatars, and attachments in chat messages. Cloudinary also manages compression of the images and returning the correct sizes depending on the view.</li>
+
 <li>Heroku is utilised for hosting the deployed application. Heroku also stores the Postgres Database used.</li>
 </ul>
 
@@ -56,10 +99,8 @@ https://github.com/CodyCodes95/CodyPartington_T2A2
 
 **R18. Discuss the database relations to be implemented in your application**
 
-**R19. Discuss the database relations to be implemented in your application**
-
-**R20. Provide your database schema design**
+**R19. Provide your database schema design**
 
 ![url](/src/modified-rides-erd.png)
 
-**R21. Describe the way tasks are allocated and tracked in your project**
+**R20. Describe the way tasks are allocated and tracked in your project**

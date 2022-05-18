@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
      rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
     before_action :authenticate_user!
-    before_action :find_chat, only: [:show, :update, :new_message]
+    before_action :find_chat, only: [:show, :update, :new_message, :reject_offer]
     before_action :check_auth, only: [:show]
 
     def index
@@ -32,8 +32,13 @@ class ChatsController < ApplicationController
     end
 
     def update
-        p params
         @chat.update!(offer_params)
+        redirect_to @chat
+    end
+
+    def reject_offer
+        @chat.update!(offer:0)
+        Message.create!(messages_params)
         redirect_to @chat
     end
 
