@@ -8,10 +8,8 @@ class ListingsController < ApplicationController
     before_action :check_model_auth, only: [:new, :create, :admin_index]
     before_action :filter_results, only: [:index, :admin_index]
     before_action :set_user, only: [:new, :edit]
-    before_action :return_images, only: [:show]
-    before_action :return_modification_types, except: [:index]
-    before_action :return_mod_names, only: [:index, :admin_index]
-    helper_method :return_mods
+    before_action :return_modification_types, only: [:show, :new, :edit]
+    helper_method :return_mods, :build_search_items
 
     def index
         profile_setup
@@ -50,6 +48,7 @@ class ListingsController < ApplicationController
 
   private
 
+#   Ensures a profile must be set up before continuing navigation of website after registration
     def profile_setup
         redirect_to '/profiles/new' if current_user && current_user.profile.nil?
     end
@@ -81,18 +80,16 @@ class ListingsController < ApplicationController
         authorize @listing
     end
 
+# Used to check auth when a specific instance cannot be loaded (new,create,index)
     def check_model_auth
         authorize Listing
     end
 
     def find_listing
-        @listing = Listing.find(params[:id])
+        @listing = Listing.includes(:profile, :car_images_attachments, :car).find(params[:id])
     end
 
-    def return_images
-        @images = @listing.car_images_attachments
-    end
-
+# Handles allowing not all of the modification fields to be entered in the new listing page without blank entries remaining in the database
     def remove_blank_mods
         Modification.all.each do |mod|
             if mod.name ==""
@@ -101,9 +98,14 @@ class ListingsController < ApplicationController
         end
     end
     
+    # Used to build search items on the index page. DRY's up the search form
+    def build_search_items(model, attribute)
+        model.select(attribute).distinct.collect {|entity| [entity[attribute], entity[attribute]]}
+    end
+
+    # Next two methods are used to dynamically print modifications to the show page for a listing. If new modification types are added, no modification to the show page is required.
     def return_modification_types
-        modifications = Modification.all
-        return @mod_types = modifications.distinct.pluck('modification_type')
+        return @mod_types = Modification.distinct.pluck('modification_type')
     end
     
     def return_mods(mod_type)
@@ -114,7 +116,4 @@ class ListingsController < ApplicationController
         end
     end
 
-    def return_mod_names
-        return @mod_names = Modification.all.distinct.pluck('name')
-    end
 end

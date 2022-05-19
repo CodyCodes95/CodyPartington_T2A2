@@ -7,8 +7,8 @@ class ChatsController < ApplicationController
     before_action :check_auth, only: [:show, :new_message, :update, :reject_offer]
 
     def index
-        @enquries_made = Chat.all.where(buyer_id: current_user.profile.id)
-        @enquries_recieved = Chat.all.where(seller: current_user.profile.id)
+        @enquries_made = Chat.includes(:buyer, :seller, :listing, :messages).where(buyer_id: current_user.profile.id)
+        @enquries_recieved = Chat.includes(:buyer, :seller, :listing, :messages).where(seller: current_user.profile.id)
     end
 
     def show; end
@@ -54,7 +54,7 @@ class ChatsController < ApplicationController
     end
 
     def find_chat
-        @chat = Chat.find(params[:id])
+        @chat = Chat.includes(:buyer, :seller, :listing, :messages).find(params[:id])
         @sender = current_user.profile.id
     end
 

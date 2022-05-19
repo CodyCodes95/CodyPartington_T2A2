@@ -4,17 +4,17 @@
 
 <div class="d-flex justify-content-center">
 <%= search_form_for @q do |f| %>
-  <%= f.select(:car_make_eq, Car.all.collect {|car| [car.make, car.make]}, include_blank: "Make") %>
-  <%= f.select(:car_model_eq, Car.all.collect {|car| [car.model, car.model]}, include_blank: "Model") %>
-<%= f.select(:year_gteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "Year From") %>
-<%= f.select(:year_lteq_any, Listing.all.collect {|listing| [listing.year, listing.year]}, include_blank: "Year To") %>
-<%= f.select(:price_gteq_any, Listing.all.collect {|listing| [listing.price, listing.price]}, include_blank: "Price From") %>
-<%= f.select(:price_lteq_any, Listing.all.collect {|listing| [listing.price, listing.price]}, include_blank: "Price To") %>
-  <%= f.select(:color_eq, Listing.all.collect {|listing| [listing.color, listing.color]}, include_blank: "Color") %>
-  <%= f.select(:modifications_name_eq, @mod_names.collect {|mod| [mod, mod]}, include_blank: "Modification") %>
+  <%= f.select(:car_make_eq, build_search_items(Car, :make), include_blank: "Make") %>
+  <%= f.select(:car_model_eq, build_search_items(Car, :model), include_blank: "Model") %>
+<%= f.select(:year_gteq_any, build_search_items(Listing, :year), include_blank: "Year From") %>
+<%= f.select(:year_lteq_any, build_search_items(Listing, :year), include_blank: "Year To") %>
+<%= f.select(:price_gteq_any, build_search_items(Listing, :price), include_blank: "Price From") %>
+<%= f.select(:price_lteq_any, build_search_items(Listing, :price), include_blank: "Price To") %>
+  <%= f.select(:color_eq, build_search_items(Listing, :color), include_blank: "Color") %>
+  <%= f.select(:modifications_name_eq, build_search_items(Modification, :name), include_blank: "Modification") %>
   <div class="d-flex justify-content-center">
-  <%= f.select(:profile_address_state_eq, Address.all.collect {|address| [address.state, address.state]}, include_blank: "State") %>
-  <%= f.select(:profile_address_city_eq, Address.all.collect {|address| [address.city, address.city]}, include_blank: "City") %>
+  <%= f.select(:profile_address_state_eq, build_search_items(Address, :state), include_blank: "State") %>
+  <%= f.select(:profile_address_city_eq, build_search_items(Address, :city), include_blank: "City") %>
   </div>
   <div class="d-flex justify-content-center mt-2">
   <%= f.submit "Search", class:'btn btn-primary btn-lg btn-block' %>
@@ -22,13 +22,13 @@
 <% end %>
 </div>
 
-<% if Listing.all.length > 0 %>
+<% if Listing.all.length != [] %>
   <div class="row">
   <% @listings.each do |listing| %>
     <div class="col-md-6 mt-3">
       <div class="card">
-      <div >
-      <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>1000, :width=>1500, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid center-block d-block mx-auto" %>
+      <div>
+      <%= cl_image_tag listing.car_images_attachments.first.key , :background=>"white", :height=>750, :width=>1000, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid center-block d-block mx-auto p-3" %>
       </div>
         <div class="card-body">
           <h3 class="card-title text-center"><%= listing.year%> <%= listing.car.make %> <%= listing.car.model %></h3>

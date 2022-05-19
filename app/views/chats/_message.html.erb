@@ -4,6 +4,6 @@
         <%= f.hidden_field :chat_id, value: @chat.id %>
         <%= f.text_area :content, class:'form-control', rows:'3' %> 
         <%= f.file_field :message_attachment, class:'form-control mt-2', type:'file', id:'formFile' %>
-         <%= f.submit class:'mt-2' %>
+         <%= f.submit "Send", class:'mt-2 btn btn-success' %>
  </div>
 <% end %>
