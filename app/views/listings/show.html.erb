@@ -39,6 +39,7 @@
     <%= @listing.profile.first_name %> <%= @listing.profile.last_name %>, <%= @listing.profile.user.email %>
     <span class="d-block"> <%= @listing.profile.address.city %> <%= @listing.profile.address.postcode %> </span>
     </section>
+    <%= button_to 'Add to your watch list', watchlist_path, method: :post, params: {listing_id: @listing.id, profile_id: current_user.profile.id}, class:'btn btn-info mt-1' %>
     <%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post, class:'btn btn-success mt-1' %>
 <% else %>
     <h3> <%= current_user ? '' : 'Log in to contact seller' %> </h3>

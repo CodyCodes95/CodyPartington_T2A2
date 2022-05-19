@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_17_093004) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_19_150615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -175,6 +175,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_17_093004) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "watch_lists", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_watch_lists_on_listing_id"
+    t.index ["profile_id"], name: "index_watch_lists_on_profile_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chat_messages", "chats"
@@ -193,4 +202,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_17_093004) do
   add_foreign_key "purchases", "cars"
   add_foreign_key "purchases", "profiles", column: "buyer_id"
   add_foreign_key "purchases", "profiles", column: "seller_id"
+  add_foreign_key "watch_lists", "listings"
+  add_foreign_key "watch_lists", "profiles"
 end

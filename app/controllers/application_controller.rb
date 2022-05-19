@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    include Pundit::Authorization
     rescue_from Pundit::NotAuthorizedError, with: :forbidden
     
     def show_error_retry(entity, page)

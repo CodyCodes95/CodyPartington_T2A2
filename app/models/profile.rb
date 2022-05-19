@@ -1,6 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :address, dependent: :destroy
+  belongs_to :watch_list
   has_many :listings
   has_many :buyer_purchases, class_name: 'Purchase', foreign_key: 'buyer_id'
   has_many :seller_purchases, class_name: 'Purchase', foreign_key: 'seller_id'

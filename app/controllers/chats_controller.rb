@@ -1,6 +1,4 @@
 class ChatsController < ApplicationController
-    include Pundit::Authorization
-    rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
     before_action :authenticate_user!
     before_action :find_chat, only: [:show, :update, :new_message, :reject_offer]

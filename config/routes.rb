@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   resources :purchases, except: [:show, :edit, :update, :destroy]
   get 'purhcases/myorders', to: 'purchases#show'
   post 'chats/:id', to: 'chats#new_message'
+  get 'watchlist', to: 'watch_list#index'
+  post 'watchlist', to: 'watch_list#create'
+  delete 'watchlist', to: 'watch_list#destroy'
 end

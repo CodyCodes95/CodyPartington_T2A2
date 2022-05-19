@@ -1,0 +1,26 @@
+<h1>Watch List</h1>
+<% if @watch_list == [] %>
+<h4>You have no listings on your watch list</h4>
+<% else %>
+  <div class="row">
+  <% @watch_list.each do |item| %>
+    <div class="col-md-6 mt-3">
+      <div class="card">
+      <div>
+      <%= cl_image_tag item.listing.car_images_attachments.first.key , :background=>"white", :height=>750, :width=>1000, :crop=>"pad", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid center-block d-block mx-auto p-3" %>
+      </div>
+        <div class="card-body">
+          <h3 class="card-title text-center"><%= item.listing.year%> <%= item.listing.car.make %> <%= item.listing.car.model %></h3>
+          <p class="card-text text-center"><%= item.listing.description %></p>
+          <ul class="list-group list-group-flush">
+      <li class="list-group-item text-center">$<%= item.listing.price %></li>
+      <li class="list-group-item text-center"><%= item.listing.color.capitalize %></li>
+      <li class="list-group-item text-center"><%= item.listing.profile.address.state %> <%= item.listing.profile.address.postcode %></li>
+      <li class="list-group-item text-center"><%= link_to "View listing", item.listing, class:"btn btn-outline-info" %></li>
+      <li class="list-group-item text-center"><%= button_to 'Delete list item', watchlist_path, method: :delete, params: {list_item_id: item.id}, class:'btn btn-warning' %></li>
+    </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

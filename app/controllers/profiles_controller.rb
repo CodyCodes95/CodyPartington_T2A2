@@ -1,6 +1,4 @@
 class ProfilesController < ApplicationController
-    include Pundit::Authorization
-    rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
     before_action :authenticate_user!
     before_action :set_profile, only: [:show, :edit, :update, :make_admin]
