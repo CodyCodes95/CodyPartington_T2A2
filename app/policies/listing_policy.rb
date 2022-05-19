@@ -21,7 +21,7 @@ class ListingPolicy < ApplicationPolicy
   end
 
   def create?
-    true if @user.profile
+    true if @user && @user.profile
   end
 
   def new?
@@ -29,7 +29,7 @@ class ListingPolicy < ApplicationPolicy
   end
 
   def update?
-    return (@user && @user.has_role?(:admin)) || (@user.id == @record.profile_id)
+    admin_or_owns?
   end
 
   def edit?
@@ -37,11 +37,15 @@ class ListingPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return (@user && @user.has_role?(:admin)) || (@user.id == @record.profile_id)
+    admin_or_owns?
   end
 
-    def edit_or_destroy?
-    return @user && (edit? || destroy?)
+  def edit_or_destroy?
+  return @user && (edit? || destroy?)
+  end
+
+  def admin_or_owns?
+    return (@user && @user.has_role?(:admin)) || (@user.id == @record.profile_id)
   end
 
   class Scope
@@ -55,6 +59,7 @@ class ListingPolicy < ApplicationPolicy
     end
 
     private
+
 
     attr_reader :user, :scope
   end

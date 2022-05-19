@@ -14,9 +14,9 @@
   <tbody>
     <% @purchases.each do |purchase| %>
     <tr>
-      <td> <%= purchase.date_purchased %> </td>
+      <td> <%= purchase.date_purchased.strftime("Purchased on %m/%d/%Y") %> </td>
       <td> <%= purchase.car.make %> <%= purchase.car.model %> </td>
-      <td> purchase.price </td>
+      <td> <%= purchase.price %> </td>
       <td> <%= purchase.seller.first_name %> <%= purchase.seller.last_name %> </td>
     </tr>
     <% end %>
@@ -40,9 +40,9 @@
   <tbody>
     <% @sales.each do |sale| %>
     <tr>
-      <td> <%= sale.date_purchased %> </td>
+      <td> <%= sale.date_purchased.strftime("Purchased on %m/%d/%Y") %> </td>
       <td> <%= sale.car.make %> <%= sale.car.model %> </td>
-      <td> sale.price </td>
+      <td> <%= sale.price %> </td>
       <td> <%= sale.seller.first_name %> <%= sale.seller.last_name %> </td>
     </tr>
     <% end %>

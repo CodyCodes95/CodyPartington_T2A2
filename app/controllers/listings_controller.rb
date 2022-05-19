@@ -4,7 +4,9 @@ class ListingsController < ApplicationController
     
     before_action :authenticate_user!, except: [:index, :show]
     before_action :find_listing, only: [:show, :update, :edit, :destroy]
-    before_action :check_auth, except: [:index, :new, :create, :admin_index, :search_index]
+    before_action :check_auth, only: [:update, :destroy]
+    before_action :check_model_auth, only: [:new, :create, :admin_index]
+    before_action :filter_results, only: [:index, :admin_index]
     before_action :set_user, only: [:new, :edit]
     before_action :return_images, only: [:show]
     before_action :return_modification_types, except: [:index]
@@ -13,12 +15,9 @@ class ListingsController < ApplicationController
 
     def index
         profile_setup
-        filter_results
     end
 
     def admin_index
-        authorize Listing
-        filter_results
     end
 
     def show; end
@@ -26,35 +25,21 @@ class ListingsController < ApplicationController
     def new
         authorize Listing
         @listing = Listing.new
-        @listing.modifications.build
-        @listing.modifications.build
-        @listing.modifications.build
-        @listing.modifications.build
-        @listing.modifications.build
+        10.times {@listing.modifications.build}
         @listing.build_car
     end
 
     def create
         authorize Listing
         @listing = Listing.create(listing_params)
-        if @listing.valid?
-            remove_blank_mods
-            redirect_to @listing
-        else
-            show_error_retry(@listing, 'new')
-        end
+        valid_retry('new')
     end
 
     def edit; end
 
     def update
         @listing.update(listing_params)
-        if @listing.valid?
-            remove_blank_mods
-            redirect_to @listing
-        else
-            show_error_retry(@listing, 'edit')
-        end
+        valid_retry('new')
     end
 
     def destroy
@@ -79,6 +64,15 @@ class ListingsController < ApplicationController
         @listings = @q.result.distinct
     end
 
+    def valid_retry(action)
+        if @listing.valid?
+            remove_blank_mods
+            redirect_to @listing
+        else
+            show_error_retry(@listing, action)
+        end
+    end
+
     def set_user
         @profile_id = current_user.profile.id
     end
@@ -87,16 +81,16 @@ class ListingsController < ApplicationController
         authorize @listing
     end
 
+    def check_model_auth
+        authorize Listing
+    end
+
     def find_listing
         @listing = Listing.find(params[:id])
     end
 
-    def return_mods(mod_type)
-        if @listing
-        return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
-        else
-          return Modification.where(modifications: { modification_type: mod_type })
-        end
+    def return_images
+        @images = @listing.car_images_attachments
     end
 
     def remove_blank_mods
@@ -106,14 +100,18 @@ class ListingsController < ApplicationController
             end
         end
     end
-
-    def return_images
-        @images = @listing.car_images_attachments
-    end
-
+    
     def return_modification_types
         modifications = Modification.all
         return @mod_types = modifications.distinct.pluck('modification_type')
+    end
+    
+    def return_mods(mod_type)
+        if @listing
+        return mods = @listing.modifications.where(modifications: { modification_type: mod_type })
+        else
+          return Modification.where(modifications: { modification_type: mod_type })
+        end
     end
 
     def return_mod_names

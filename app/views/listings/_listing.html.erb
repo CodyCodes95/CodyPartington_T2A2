@@ -37,12 +37,8 @@
         <%end%>
     <% else %>
         <%= f.fields_for :modifications do |f| %>
-        <div class="nested-fields">
-            <div class="field">
             <%= f.hidden_field :modification_type, value: type %>
             <%= f.text_field :name %>
-            </div>
-        </div>
         <%end%>
     <%end%>
 <% end %>

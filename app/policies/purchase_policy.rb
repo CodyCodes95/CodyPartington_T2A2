@@ -12,4 +12,7 @@ class PurchasePolicy < ApplicationPolicy
         index?
     end
     
+    def create?
+        return (@user && @user.profile.id == @record.seller.id)
+    end
 end

@@ -5,7 +5,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    admin_or_owns
+    admin_or_owns?
   end
 
   def new?
@@ -21,7 +21,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def update?
-    admin_or_owns
+    admin_or_owns?
   end
 
   def destroy?
@@ -31,10 +31,8 @@ class ProfilePolicy < ApplicationPolicy
   def make_admin?
     destroy?
   end
-
-  private
-
-  def admin_or_owns
+  
+  def admin_or_owns?
     return (@user && @user.has_role?(:admin)) || (@user && @user.profile.id == @record.id)
   end
 

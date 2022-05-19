@@ -1,30 +1,27 @@
 class ChatsController < ApplicationController
-
     include Pundit::Authorization
-     rescue_from Pundit::NotAuthorizedError, with: :forbidden
+    rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
     before_action :authenticate_user!
     before_action :find_chat, only: [:show, :update, :new_message, :reject_offer]
-    before_action :check_auth, only: [:show]
+    before_action :check_auth, only: [:show, :new_message, :update, :reject_offer]
 
     def index
-        @enquries_made = Chat.all.where(buyer_id:current_user.profile.id)
-        @enquries_recieved = Chat.all.where(seller:current_user.profile.id)
+        @enquries_made = Chat.all.where(buyer_id: current_user.profile.id)
+        @enquries_recieved = Chat.all.where(seller: current_user.profile.id)
     end
 
-    def show
-
-    end
+    def show; end
 
     def create
+        authorize Chat
         @chat = Chat.new
         @chat = Chat.create!(chat_params)
         @message = Message.new
         redirect_to @chat
     end
 
-    def new
-    end
+    def new; end
 
     def new_message
        @message = Message.create!(messages_params)
@@ -37,12 +34,12 @@ class ChatsController < ApplicationController
     end
 
     def reject_offer
-        @chat.update!(offer:0)
+        @chat.update!(offer: 0)
         Message.create!(messages_params)
         redirect_to @chat
     end
 
-    private
+  private
 
     def chat_params
         params.permit(:car_id, :buyer_id, :seller_id, :listing_id)
@@ -64,5 +61,4 @@ class ChatsController < ApplicationController
     def check_auth
         authorize @chat
     end
-
 end

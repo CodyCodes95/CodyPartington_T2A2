@@ -17,12 +17,10 @@ class PurchasesController < ApplicationController
 
     def create
         Listing.destroy(purchase_params[:listing_id])
-        @purchase = Purchase.create(purchase_params.except(:listing_id))
-            if @purchase.valid?
-            redirect_to purchases_path
-        else
-            show_error_retry(@listing, 'show')
-        end
+        @purchase = Purchase.new(purchase_params.except(:listing_id))
+        authorize @purchase
+        @purchase.save
+        redirect_to purchases_path
     end
 
     private
