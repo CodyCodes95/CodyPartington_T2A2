@@ -1,8 +1,8 @@
 <%= form_with model: @message, data:{turbo:false} do |f| %>
-<div class="w-50">
+<div class="w-100 d-flex justify-content-start flex-column">
         <%= f.hidden_field :profile_id, value: @sender %>
         <%= f.hidden_field :chat_id, value: @chat.id %>
-        <%= f.text_area :content, class:'form-control', rows:'3' %> 
+        <%= f.text_area :content, class:'form-control', id:'exampleFormControlTextarea1', rows:'3' %> 
         <%= f.file_field :message_attachment, class:'form-control mt-2', type:'file', id:'formFile' %>
          <%= f.submit "Send", class:'mt-2 btn btn-success' %>
  </div>

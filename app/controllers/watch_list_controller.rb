@@ -8,7 +8,6 @@ class WatchListController < ApplicationController
 
     def create
         WatchList.create!(watch_list_params)
-        redirect_to watchlist_path
     end
 
     def destroy
@@ -23,7 +22,7 @@ class WatchListController < ApplicationController
     end
 
     def set_list
-        @watch_list = WatchList.where(profile_id:set_profile)
+        @watch_list = WatchList.where(profile_id:current_user.profile.id).includes(:listing)
     end
 
 end

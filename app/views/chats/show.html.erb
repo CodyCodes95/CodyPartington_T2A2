@@ -7,7 +7,7 @@
     <% @chat.messages.each do |message| %>
     <div class='d-flex mt-4'>
     <h5 class="me-auto"><%= message.profile.first_name %> <%= message.profile.last_name %></h5> 
-    <div><%= message.created_at.strftime("%a, %B %d %T") %></div>
+    <div><%=  distance_of_time_in_words(message.created_at, Time.now, include_seconds: true) %> ago</div>
     </div>
     <div class='bg-light bg-gradient'>
     <p><%= message.content %> <%= cl_image_tag message.message_attachment.key , :height=>199, :crop=>"fill", cloud_name: ENV['CLOUDINARY_CLOUD_NAME'] if message.message_attachment.attached? %> </p>

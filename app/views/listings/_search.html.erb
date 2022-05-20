@@ -1,0 +1,17 @@
+<%= search_form_for @q do |f| %>
+  <%= f.select(:car_make_eq, build_search_items(Car, :make), include_blank: "Make") %>
+  <%= f.select(:car_model_eq, build_search_items(Car, :model), include_blank: "Model") %>
+<%= f.select(:year_gteq_any, build_search_items(Listing, :year), include_blank: "Year From") %>
+<%= f.select(:year_lteq_any, build_search_items(Listing, :year), include_blank: "Year To") %>
+<%= f.select(:price_gteq_any, build_search_items(Listing, :price), include_blank: "Price From") %>
+<%= f.select(:price_lteq_any, build_search_items(Listing, :price), include_blank: "Price To") %>
+  <%= f.select(:color_eq, build_search_items(Listing, :color), include_blank: "Color") %>
+  <%= f.select(:modifications_name_eq, build_search_items(Modification, :name), include_blank: "Modification") %>
+  <div class="d-flex justify-content-center">
+  <%= f.select(:profile_address_state_eq, build_search_items(Address, :state), include_blank: "State") %>
+  <%= f.select(:profile_address_city_eq, build_search_items(Address, :city), include_blank: "City") %>
+  </div>
+  <div class="d-flex justify-content-center mt-2">
+  <%= f.submit "Search", class:'btn btn-primary btn-lg btn-block' %>
+  </div>
+  <% end %>

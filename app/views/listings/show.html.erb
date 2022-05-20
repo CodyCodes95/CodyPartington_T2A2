@@ -9,7 +9,7 @@
 </div>
 </div>
 
-<section class="mt-3">
+<section class="mt-3 d-flex justify-content-center flex-column align-items-center">
 <h1>$<%= @listing.price %> </h1>
 
 <h3 class="mt-3">Description</h3>
@@ -26,9 +26,9 @@
     <%if return_mods(type)[0] && return_mods(type)[0].name != ""%>
         <h4 class="mt-4"> <%=type.capitalize%> </h4>
         <% mods = return_mods(type) %> 
-        <ul class="list-group w-25 p-3">
+        <ul class="list-inline mx-auto justify-content-center w-75">
         <%mods.each do |mod|%>
-            <li class="list-group-item"> <%= mod.name.capitalize %>  </li>
+            <li class="list-group-item text-center "> <%= mod.name.capitalize %>  </li>
         <% end %>
         </ul>
     <% end %>
@@ -39,8 +39,10 @@
     <%= @listing.profile.first_name %> <%= @listing.profile.last_name %>, <%= @listing.profile.user.email %>
     <span class="d-block"> <%= @listing.profile.address.city %> <%= @listing.profile.address.postcode %> </span>
     </section>
+    <div class='mt-3 d-flex justify-content-center flex-column align-items-center'>
     <%= button_to 'Add to your watch list', watchlist_path, method: :post, params: {listing_id: @listing.id, profile_id: current_user.profile.id}, class:'btn btn-info mt-1' %>
     <%= button_to 'Make an enquiry', chats_path(buyer_id: current_user.profile.id, seller_id: @listing.profile_id, listing_id: @listing.id ),method: :post, class:'btn btn-success mt-1' %>
+    </div>
 <% else %>
     <h3> <%= current_user ? '' : 'Log in to contact seller' %> </h3>
 <% end %>
