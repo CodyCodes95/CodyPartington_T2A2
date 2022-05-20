@@ -2,7 +2,7 @@
 
   <div class="row align-items-center">
 <% @listing.car_images_attachments.each do |image| %>
-<div class="col-md">
+<div class="col-md-4">
     <%= cl_image_tag image.key , crop:'scale', :background=>"white", :width=>600, cloud_name: ENV['CLOUDINARY_CLOUD_NAME'], class:"img-fluid" %>
     </div>
 <%end%>

@@ -73,6 +73,8 @@ https://github.com/CodyCodes95/CodyPartington_T2A2/projects/2
 
 **R13. Wireframes for your app**
 
+located at /src/modified-rides-wireframes (PDF and Balsamic file)
+
 **R14. An ERD for your app**
 
 ![url](/src/modified-rides-erd.png)
@@ -87,17 +89,32 @@ As Devise is used to handle user registrations, a user's profile is abstracted a
 
 The chat entity is what the app uses to create a conversation between a buyer and seller. A chat references a buyer and seller via a profile ID, and a listing by a listing ID. Messages are abstracted into a separate entity, which contain the content of the message and the sender via a profile ID. A message belongs to the chat which it was created in.
 
+The watch list entity creates a watch list item and links it to the profile ID of who is watching it, and the listing ID of which listing is being watched.
+
 **R16. Detail any third party services that your app will use**
 
 <ul>
 <li>Cloudinary is utilised for upload of images for car listings, user avatars, and attachments in chat messages. Cloudinary also manages compression of the images and returning the correct sizes depending on the view.</li>
 
 <li>Heroku is utilised for hosting the deployed application. Heroku also stores the Postgres Database used.</li>
+
 </ul>
 
 **R17. Describe your projects models in terms of the relationships (active record associations) they have with each other**
 
+Each model in the application has a number of relationships used to ensure that each model that is related to one another can access the relevant information that it needs to function from another model. Looking at our *listings* and *profiles* models as examples, as they are what most of the application revolves around, and a lot of other models are dependant on them. A listing *belongs to* a profile, and a profile *has many* listings. 
+
+The *belongs to* relationship being applied to listing in relation to a profile allows for a few things. Firstly it ensures that a listing cannot be created without a profile. That is, a car listing must be posted by someone. It would make no sense for a listing to be posted by no one, so this relationship must exist. With this relationship being declared, at the time of a creation of a listing, the profile ID must be provided as a mandatory field, which allows for the correct association between profile and listing to be made. This relationship also allows Active Record to access the profile of any given listing. If we want to find who the profile was for any given listing, this relationship allows us to get that information.
+
+the *has many* relationship being applied to profile in relation to listings also allow for certain functionality. Unlike a *belongs to* relationship, a listing is not a mandatory field in order for a profile to be created. This makes sense because a profile does not *need* to have a listing to exist, unlike a listing needing a profile. Users are welcome to use a profile to simply browse or buy cars, and creating a listing at the time of creating a profile does is not necessary. Similar to the *belongs to* relationship, *has many* gives us access to all the listings of any given profile.
+
+The *has many through* relationship is utilised between our listing and modification models. This relationship is used in Active Record to represent a many to many relationship. The has many through relationship takes our models which have a many to many relationship (listings, modifications) and connect them to a joining table calling Listing_modifications. As many cars share the same modifications, this relationship is used to avoid duplicate data for modifications when more than one listing shares a modification.
+
+The *has one attached* and *has many attached* relationship is utilised between some of our models as well. Looking at listings as an example,  a *has many attached :car_images* association allows us to pass one or more files through as *car_images*, where rails will then know to use Active Storage to store the files wherever specified (in our case, Cloudinary) and associate that image or images with that listing. This association allows us to find any *car images* associated with a particular listing.
+
 **R18. Discuss the database relations to be implemented in your application**
+
+A number of relations are used in the database for the application, 
 
 **R19. Provide your database schema design**
 
