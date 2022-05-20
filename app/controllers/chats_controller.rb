@@ -52,7 +52,8 @@ class ChatsController < ApplicationController
     end
 
     def find_chat
-        @chat = Chat.includes(:buyer, :seller, :listing, :messages).find(params[:id])
+        # Including only necessary associations for optimisation
+        @chat = Chat.includes(:listing, :messages).find(params[:id])
         @sender = current_user.profile.id
     end
 

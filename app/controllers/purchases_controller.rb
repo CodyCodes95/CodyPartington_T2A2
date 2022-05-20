@@ -34,8 +34,8 @@ class PurchasesController < ApplicationController
     end
 
     def check_auth
-        authorize @purchases
-        authorize @sales
+        authorize @purchases if @purchases != []
+        authorize @sales if @sales != []
     end
 
 end

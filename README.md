@@ -2,6 +2,8 @@
 
 There are many online marketplaces that facillitate the buying and selling of cars. These fill the needs of most buyers and sellers. Being someone who has a passion for modified cars, and having gone through the process of selling modified cars on these platforms multiple times, it is clear that the platforms available do not cater well to specialized vehicles.
 
+Although I it may not make sense for existing marketplace apps such as Carsales to focus on catering to modified car buyers and sellers as they make up a very small percentage of the overall used car market, there is space in the market for an app to serve the needs of these people.
+
 **R8. Why is it a problem that needs solving?**
 
 As a buyer interested in buying a modified car, it is hard to find what you're looking for on a regular car marketplace. As a seller using these platforms it's impossible to have your listing targeted to a buyer who would be interested in a modified vehicle. It is for this reason that a very little amount of modified car sales take place on popular marketplaces such as Carsales.
@@ -48,7 +50,7 @@ The purpose of my marketplace app is to faciliate the discovery, buying and sell
 
 **Sitemap**
 
-Located at /src/sitemap.xml 
+Located at /docs/sitemap.xml 
 
 **Screenshots**
 
@@ -73,21 +75,55 @@ https://github.com/CodyCodes95/CodyPartington_T2A2/projects/2
 
 **R13. Wireframes for your app**
 
-located at /src/modified-rides-wireframes (PDF and Balsamic file)
+located at /docs/modified-rides-wireframes (PDF and Balsamic file)
 
 **R14. An ERD for your app**
 
-![url](/src/modified-rides-erd.png)
+![url](/docs/modified-rides-erd.png)
 
 **R15. Explain the different high-level components (abstractions) in your app**
 
-The listing entity holds most of the required data for a listing. The car make and model is abstracted into its own entity, which the listing references. This is so that there can be multiple cars listed with the same make and model, without duplicate tuples. The same process is applied to modifications, which listings references through a listing_modifications join table. Once again, this is to allow there to be many listings with the same modifications, and no duplicate data. A listing also references ActiveStorage to retrieve attachment images for any particular listing.
+The models in the application are:
 
-The purchase entity is designed to hold a record of all listings which have been purchased through the application. A purchase references a car as the item purchased, and gets the value of the purchase from the offer that was accepted to create the purchase. A purchase also references a buyer and a seller through the profile entity.
+<ul>
+<li>Address</li>
+<li>Car</li>
+<li>Chat</li>
+<li>Listing_Modifications(Join table)</li>
+<li>Listing</li>
+<li>Message</li>
+<li>Modification</li>
+<li>Profile</li>
+<li>Purchase</li>
+<li>Role(Rolify)</li>
+<li>User(Devise)</li>
+<li>Watch_List</li>
+</ul>
 
-As Devise is used to handle user registrations, a user's profile is abstracted away into its own entity. 
+The views and controllers in the application are:
 
-The chat entity is what the app uses to create a conversation between a buyer and seller. A chat references a buyer and seller via a profile ID, and a listing by a listing ID. Messages are abstracted into a separate entity, which contain the content of the message and the sender via a profile ID. A message belongs to the chat which it was created in.
+<ul>
+<li>Admins</li>
+<li>Chats</li>
+<li>Listings</li>
+<li>Profiles</li>
+<li>Purchases</li>
+<li>Watch Lists</li>
+</ul>
+
+The majority of the app is mostly centered around the listings and profiles models, and a lot of other models are associated with the listings and the people buying and selling them (profiles) as they are the core of the application. 
+
+As Devise is used to handle user registrations, a user's profile is abstracted away into its own entity. Devise has pre built controllers and views that handle the creation of user accounts.
+
+The profile model holds the information required for a profile to be created. The address is abstracted into its own entity. Upon creation of a user, a profile must be made, as the application expects created listings to be tied to a profile, not a user. As soon as a user is created, they are redirect to the new profile page which starts the new action in the profiles controller. This starts the process of building a profile in the form on the view, where the user can then enter their personal details for their profile. Once the form is submitted, the profile create action runs from the profiles controller which references the validations in the model to ensure the data is what is expected, and if so are redirected to the listings page.
+
+The listing model holds most of the required data for a listing. The car make and model is abstracted into its own entity, which the listing references. This is so that there can be multiple cars listed with the same make and model, without duplicate tuples. The same process is applied to modifications, which listings references through a listing_modifications join table. Once again, this is to allow there to be many listings with the same modifications, and no duplicate data. A listing also references ActiveStorage to retrieve attachment images for any particular listing.
+
+The listing controller handles all CRUD aspects of a listing, including creation of modifications and cars within the database. When creating a listing, the *new* action is called in the listings controller which starts the build process for the listing, car and modifications. This allows the create listing form to be submitted, which takes that informations and creates the final listing with the create method. The controller is responsible for passing through all the required attributes from listings and other relations to the view for viewing back created listings in both the show page and the index pages. The listings controller also handles the search and filtering logic for the view.
+
+The chat controller is what the app uses to create a conversation between a buyer and seller. On the listing view there is a make enquiry button, which sends the parameters of the listing, and who the person (buyer) who clicked the button was, through to the chat controller where the chat is then created. Messages are also created in the chat controller, despite being abstracted away into a separate model. The chat view shows the form to the user where the message content including attachments can be entered and send for creation.
+
+The purchase model is designed to hold a record of all listings which have been purchased through the application. A purchase is created once an offer in a chat has been accepted. The view of the chat has an accept offer button which sends through the params of the car sold, buyer, seller and the price to the purchases controller, where the purchase is then created, and listing removed.
 
 The watch list entity creates a watch list item and links it to the profile ID of who is watching it, and the listing ID of which listing is being watched.
 
@@ -114,10 +150,16 @@ The *has one attached* and *has many attached* relationship is utilised between 
 
 **R18. Discuss the database relations to be implemented in your application**
 
-A number of relations are used in the database for the application, 
+A number of relations are used in the database for the application to ensure integrity and correct referencing between entities. One of these is a *one to many* relation. As can be seen in our EDA, the relation between Chats and Messages is an example of a *one to many* relation. A chat can have multiple messages, and each message must have one chat. This is a one to many relationship, one chat to many messages. The entities make this relation by referencing a foreign key between the tables. Since a messages needs a chat to exist, each message references the chat ID as a foreign key. 
+
+An example of a *one to one* relation which can be seen in our ERD is is our Users and Profiles. A user has one profile and a profile must have one user. Once again, a foreign key is used here in the Profiles table to reference the user that the profile belongs to.
+
+Although it may not look like in from the ERD, our Listings and Modifications have a *many to many* relationship with each other. Although this is true, we represent this by both Listings and Modifications having a *one to many* relation with a joining table called Lisitng_modifications. For each tuple of this join table, it references both the listing ID and the modicication ID in order to create the *many to many* relation.
 
 **R19. Provide your database schema design**
 
-![url](/src/modified-rides-erd.png)
+![url](/docs/modified-rides-erd.png)
 
 **R20. Describe the way tasks are allocated and tracked in your project**
+
+The Agile philosphy was applied to the development of this project. Tasks were mainly tracked by first developing user stories for features, then translating those stories into separate task cards using Github Kanban Project Board. Under each card contained multiple actions that needed to be completed for the user story to be satisfied. User stories were acted upon quickly, and features deployed as fast as possible. I also participated in daily stand ups with which helped me further reflect on the work completed of the previous day and reaffirmed what I would be working on for the day to come.

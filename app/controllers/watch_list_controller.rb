@@ -22,6 +22,7 @@ class WatchListController < ApplicationController
     end
 
     def set_list
+        # Including listing to only query relevant associations
         @watch_list = WatchList.where(profile_id:current_user.profile.id).includes(:listing)
     end
 

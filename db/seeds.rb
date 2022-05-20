@@ -30,7 +30,7 @@ listing.car_images.attach(io: File.open("#{Rails.root}/public/h3.jpg"), filename
 #A4
 
 car = Car.create!(make:'Audi', model:'A4')
-listing = car.listings.create!(profile_id:1, car_id:2, price:2500000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
+listing = car.listings.create!(profile_id:1, car_id:2, price:25000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
 listing.modifications.create!(modification_type:'Suspension', name:'Airlift Suspension')
 listing.modifications.create!(modification_type:'Suspension', name:'T-Demand rear upper control arms')
 listing.modifications.create!(modification_type:'Suspension', name:'Front upper control arms')

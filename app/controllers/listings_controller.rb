@@ -57,7 +57,8 @@ class ListingsController < ApplicationController
     end
 
     def filter_results
-        @q = Listing.joins(:listing_modifications, :modifications).ransack(params[:q])
+        # Query only includes relevant associations for the search
+        @q = Listing.includes(:car).joins(:listing_modifications, :modifications).ransack(params[:q])
         @listings = @q.result.distinct
     end
 
@@ -84,6 +85,7 @@ class ListingsController < ApplicationController
     end
 
     def find_listing
+        # Only including relevant associations with query
         @listing = Listing.includes(:profile, :car_images_attachments, :car).find(params[:id])
     end
 

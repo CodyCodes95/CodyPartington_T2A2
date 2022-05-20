@@ -60,15 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_150615) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chat_messages", force: :cascade do |t|
-    t.bigint "chat_id", null: false
-    t.bigint "message_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_chat_messages_on_chat_id"
-    t.index ["message_id"], name: "index_chat_messages_on_message_id"
-  end
-
   create_table "chats", force: :cascade do |t|
     t.bigint "buyer_id", null: false
     t.bigint "seller_id", null: false
@@ -186,8 +177,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_150615) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "chat_messages", "chats"
-  add_foreign_key "chat_messages", "messages"
   add_foreign_key "chats", "listings"
   add_foreign_key "chats", "profiles", column: "buyer_id"
   add_foreign_key "chats", "profiles", column: "seller_id"

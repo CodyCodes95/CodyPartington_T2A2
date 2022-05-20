@@ -5,7 +5,7 @@ class PurchasePolicy < ApplicationPolicy
     end
 
     def show?
-        return (@user && @user.has_role?(:admin)) || (@user && @user.profile.id == @record.id)
+        return (@user && @user.has_role?(:admin)) || (@record && @user.profile.id == @record.id)
     end
 
     def destroy?

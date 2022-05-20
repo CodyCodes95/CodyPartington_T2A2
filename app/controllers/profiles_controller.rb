@@ -59,6 +59,7 @@ class ProfilesController < ApplicationController
     end
 
     def set_profile
+        # Query only including address relation for more effecient query
         @profile = Profile.includes(:address).find(params[:id])
     end
 
