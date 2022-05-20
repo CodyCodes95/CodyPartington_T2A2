@@ -54,6 +54,8 @@ Located at /docs/sitemap.xml
 
 **Screenshots**
 
+located at /docs/screenshots
+
 **Target audience**
 <ul>
 <li>Buyers interested in purchasing a modified car.</li>
