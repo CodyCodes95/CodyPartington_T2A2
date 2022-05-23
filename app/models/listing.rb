@@ -7,6 +7,6 @@ class Listing < ApplicationRecord
   has_many :watch_lists, dependent: :destroy
   has_many_attached :car_images
   accepts_nested_attributes_for :modifications, :car
-  validates :price, :description, :year, :color, presence:true
+  validates :price, :description, :year, :color, :car_images, presence:true
   validates :description, length: { in: 10..500 }
 end
