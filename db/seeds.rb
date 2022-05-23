@@ -29,18 +29,18 @@ listing.car_images.attach(io: File.open("#{Rails.root}/public/h3.jpg"), filename
 
 #A4
 
-car = Car.create!(make:'Audi', model:'A4')
-listing = car.listings.create!(profile_id:1, car_id:2, price:25000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
-listing.modifications.create!(modification_type:'Suspension', name:'Airlift Suspension')
-listing.modifications.create!(modification_type:'Suspension', name:'T-Demand rear upper control arms')
-listing.modifications.create!(modification_type:'Suspension', name:'Front upper control arms')
-listing.modifications.create!(modification_type:'Exterior', name:'Moulded rear spoiler')
-listing.modifications.create!(modification_type:'Exterior', name:'RS4 front bar')
-listing.modifications.create!(modification_type:'Exterior', name:'Smoked tail lights')
-listing.modifications.create!(modification_type:'Wheels', name:'Work Equip 05 18x10 & 18x10.5')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a1.jpg"), filename: 'a1.jpg')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a2.jpg"), filename: 'a2.jpg')
-listing.car_images.attach(io: File.open("#{Rails.root}/public/a3.jpg"), filename: 'a3.jpg')
+# car = Car.create!(make:'Audi', model:'A4')
+# listing = car.listings.create!(profile_id:1, car_id:2, price:25000, description:'My Audi A4. All modifications listed in the modification section.', color:'White', year:2010)
+# listing.modifications.create!(modification_type:'Suspension', name:'Airlift Suspension')
+# listing.modifications.create!(modification_type:'Suspension', name:'T-Demand rear upper control arms')
+# listing.modifications.create!(modification_type:'Suspension', name:'Front upper control arms')
+# listing.modifications.create!(modification_type:'Exterior', name:'Moulded rear spoiler')
+# listing.modifications.create!(modification_type:'Exterior', name:'RS4 front bar')
+# listing.modifications.create!(modification_type:'Exterior', name:'Smoked tail lights')
+# listing.modifications.create!(modification_type:'Wheels', name:'Work Equip 05 18x10 & 18x10.5')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a1.jpg"), filename: 'a1.jpg')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a2.jpg"), filename: 'a2.jpg')
+# listing.car_images.attach(io: File.open("#{Rails.root}/public/a3.jpg"), filename: 'a3.jpg')
 
 puts "Users: #{User.count}"
 puts "Profiles: #{Profile.count}"
